@@ -29,7 +29,9 @@
         ↓
 4. AI 채팅창 열기                (오른쪽에 패널이 뜸)
         ↓
-5. auto-setup.md 붙여넣기       (나머지는 AI가 자동 세팅)
+5. 권한 모드 사전 설정 (선택)    (config.toml — 프롬프트 빈도 줄이기)
+        ↓
+6. auto-setup.md 붙여넣기       (나머지는 AI가 자동 세팅)
 ```
 
 ---
@@ -173,7 +175,43 @@ ChatGPT Free 계정으로도 **현재 무료 체험 가능** (한시적). Plus/P
 
 ---
 
-## 5단계: 나머지는 Codex에게 맡기기
+## 5단계: 권한 모드 사전 설정 (선택)
+
+> 💡 **왜?** Codex도 명령을 실행할 때마다 **"실행해도 될까요?"** 권한 프롬프트를 띄웁니다. 매번 클릭하기 귀찮으면 `~/.codex/config.toml`에 모드를 미리 정해두면 빈도가 줄어듭니다.
+>
+> ⚠️ **Claude와의 차이 — 솔직 안내**: Claude는 `Bash(git *)` 같은 **명령어 단위 화이트리스트**를 지원하지만, **Codex는 그게 없습니다**. 대신 두 가지 모드(승인 정책 + 샌드박스)로만 권한을 잡습니다. 그래서 Claude만큼 정밀하게 "git/npm은 자동, rm은 묻기" 식으로 나눌 수가 없습니다.
+
+### 권장 default — 워크스페이스 안 작업은 자유, 외부는 묻기
+
+VS Code 터미널에서:
+
+**Mac · Linux · Windows WSL (bash):**
+
+```bash
+mkdir -p ~/.codex && cat > ~/.codex/config.toml <<'EOF'
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+EOF
+```
+
+> Windows 사용자는 0단계에서 깐 **WSL Ubuntu 터미널 안에서** 실행. PowerShell 아님.
+
+### 의미
+
+| 키 | 값 | 효과 |
+|----|-----|------|
+| `approval_policy` | `on-request` | Codex가 필요하다고 판단할 때만 묻기 (default보다 덜 묻음) |
+| `sandbox_mode` | `workspace-write` | **현재 작업 폴더 안에서의 파일 쓰기·명령 실행은 자동 허용**, 폴더 밖 작업·네트워크는 여전히 묻기 |
+
+### 더 강한 옵션 (비추천 — 자기 책임)
+
+완전히 안 묻게 하려면 `approval_policy = "never"`. 단 sandbox가 안전망 역할을 하지만, 비개발자는 **권장하지 않음** — 의도치 않은 실행을 알아챌 기회가 없어집니다.
+
+✅ **확인**: `cat ~/.codex/config.toml` 결과가 위와 같으면 OK. 다음 채팅 세션부터 적용.
+
+---
+
+## 6단계: 나머지는 Codex에게 맡기기
 
 채팅창이 열렸으면, 아래 파일 전체 내용을 **복사해서 채팅창에 붙여넣기**:
 

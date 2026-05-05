@@ -118,7 +118,7 @@
 
 1. 위 **"당신은 누구인가요?"** 에서 경로 고르기
 2. 해당 AI의 `setup-guide.md` 를 열고 단계별로 따라하기
-   - **Claude**: 0단계 git·Node 사전 설치 → 3단계 CLI 설치 → **6단계 권한 사전 설정(매번 묻는 프롬프트 차단)** → 7단계 sonmat 슬래시 설치 → 8단계 auto-setup
-   - **Codex (Windows)**: 0단계에서 WSL2 Ubuntu 설치 후 모든 작업을 Ubuntu 안에서 진행
+   - **Claude**: 0단계 git·Node 사전 설치 → 3단계 CLI 설치 → **6단계 권한 사전 설정(`Bash(git *)` 같은 명령어 단위 화이트리스트)** → 7단계 sonmat 슬래시 설치 → 8단계 auto-setup
+   - **Codex**: Windows는 0단계 WSL2 Ubuntu 필수. 5단계에서 `~/.codex/config.toml`에 모드 권한(`workspace-write`)만 사전 설정 가능 — Claude처럼 명령어 단위 whitelist는 미지원
 3. AI가 동작하면 `auto-setup.md` 내용을 첫 대화에 붙여넣기
 4. AI가 질문하면 답하기 → 세팅 끝

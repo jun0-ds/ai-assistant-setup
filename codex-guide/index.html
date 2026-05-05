@@ -52,7 +52,9 @@
         ↓
 4. AI 채팅창 열기                (오른쪽에 패널이 뜸)
         ↓
-5. auto-setup 붙여넣기          (나머지는 AI가 자동 세팅)</code></pre>
+5. 권한 모드 사전 설정 (선택)    (config.toml — 프롬프트 빈도 줄이기)
+        ↓
+6. auto-setup 붙여넣기          (나머지는 AI가 자동 세팅)</code></pre>
 
 <div class="guide-step">
   <span class="guide-step-num">STEP 0</span>
@@ -176,6 +178,36 @@ node --version</code></pre>
 
 <div class="guide-step">
   <span class="guide-step-num">STEP 5</span>
+  <h3 style="margin-top:0">권한 모드 사전 설정 (선택)</h3>
+  <p>💡 <strong>왜?</strong> Codex도 명령을 실행할 때마다 <strong>"실행해도 될까요?"</strong> 권한 프롬프트를 띄웁니다. <code>~/.codex/config.toml</code>에 모드를 미리 정해두면 빈도가 줄어듭니다.</p>
+  <div class="guide-tip">⚠️ <strong>Claude와의 차이 — 솔직 안내</strong>: Claude는 <code>Bash(git *)</code> 같은 <strong>명령어 단위 화이트리스트</strong>를 지원하지만, <strong>Codex는 그게 없습니다</strong>. 두 가지 모드(승인 정책 + 샌드박스)로만 권한을 잡습니다. 그래서 Claude만큼 정밀하게 "git/npm은 자동, rm은 묻기" 식으로 나눌 수가 없습니다.</div>
+
+  <h3>권장 default — 워크스페이스 안 작업은 자유, 외부는 묻기</h3>
+  <p>VS Code 터미널에서 (Mac · Linux · Windows WSL bash):</p>
+  <pre><code>mkdir -p ~/.codex &amp;&amp; cat &gt; ~/.codex/config.toml &lt;&lt;'EOF'
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+EOF</code></pre>
+  <p>Windows 사용자는 0단계에서 깐 <strong>WSL Ubuntu 터미널 안에서</strong> 실행. PowerShell 아님.</p>
+
+  <h3>의미</h3>
+  <table>
+    <thead>
+      <tr><th>키</th><th>값</th><th>효과</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>approval_policy</code></td><td><code>on-request</code></td><td>Codex가 필요하다고 판단할 때만 묻기 (default보다 덜 묻음)</td></tr>
+      <tr><td><code>sandbox_mode</code></td><td><code>workspace-write</code></td><td><strong>현재 작업 폴더 안에서의 파일 쓰기·명령 실행은 자동 허용</strong>, 폴더 밖 작업·네트워크는 여전히 묻기</td></tr>
+    </tbody>
+  </table>
+
+  <div class="guide-tip">🔥 <strong>더 강한 옵션 (비추천)</strong>: 완전히 안 묻게 하려면 <code>approval_policy = "never"</code>. sandbox가 안전망 역할을 하지만, 비개발자에게는 <strong>권장하지 않음</strong> — 의도치 않은 실행을 알아챌 기회가 없어집니다.</div>
+
+  <div class="guide-success">✅ <code>cat ~/.codex/config.toml</code> 결과가 위와 같으면 OK. 다음 채팅 세션부터 적용.</div>
+</div>
+
+<div class="guide-step">
+  <span class="guide-step-num">STEP 6</span>
   <h3 style="margin-top:0">나머지는 Codex에게 맡기기</h3>
   <p>채팅창이 열렸으면, <strong>auto-setup 프롬프트를 복사해서 채팅창에 붙여넣기</strong>:</p>
   <p>📋 <a href="https://github.com/jun0-ds/ai-assistant-setup/blob/main/codex/auto-setup.md" target="_blank" rel="noopener"><strong>auto-setup.md</strong></a> — 이 파일을 열고, 내용 전체 선택(<code>Ctrl+A</code>) → 복사(<code>Ctrl+C</code>) → Codex 채팅창에 붙여넣기(<code>Ctrl+V</code>) → 엔터.</p>
