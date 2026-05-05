@@ -10,23 +10,91 @@
 > - 완전 처음 (VS Code·Node.js 둘 다 없음): 20~30분
 > - VS Code 있음: 10~15분
 >
-> ⚠️ **Windows 사용자**: VS Code 확장은 Windows 네이티브에서 동작. 그러나 **CLI(codex 명령)는 WSL 권장**. 가이드 중간에 분기 안내.
+> 🚨 **Windows 사용자 필독**: Codex CLI는 Windows 네이티브에서 안정적으로 안 돕니다. **반드시 WSL2(Ubuntu)에서 진행하세요.** 0단계가 WSL 설치입니다. 안 거치면 중간에 깨집니다.
 
 ---
 
 ## 🗺️ 전체 흐름 — 무엇을 하는 건가요?
 
 ```
-1. VS Code 설치         (에디터)
+0. 사전 요구사항
+   - Mac/Linux: git, Node.js 22+ 확인
+   - Windows: WSL2 Ubuntu 설치 (필수)
         ↓
-2. Codex 확장 설치       (VS Code 안에 AI 붙이기)
+1. VS Code 설치                (에디터)
         ↓
-3. ChatGPT 로그인         (무료 체험이면 여기서 끝)
+2. Codex 확장 설치              (VS Code 안에 AI 붙이기)
         ↓
-4. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+3. ChatGPT 로그인                (무료 체험이면 여기서 끝)
         ↓
-5. auto-setup.md 붙여넣기 (나머지는 AI가 자동 세팅)
+4. AI 채팅창 열기                (오른쪽에 패널이 뜸)
+        ↓
+5. auto-setup.md 붙여넣기       (나머지는 AI가 자동 세팅)
 ```
+
+---
+
+## 0단계: 사전 요구사항
+
+### 🍎 Mac · 🐧 Linux 사용자
+
+git과 Node.js 22+가 깔려 있어야 합니다. 터미널에서 확인:
+
+```bash
+git --version
+node --version
+```
+
+❌ 누락 시 설치:
+- **git** (Mac): `xcode-select --install`
+- **git** (Linux): `sudo apt install git`
+- **Node.js**: https://nodejs.org → **LTS 22 이상** 다운로드 → 설치 → 터미널 새 창
+
+✅ 둘 다 버전이 출력되면 **1단계로 이동**.
+
+---
+
+### 🪟 Windows 사용자 — WSL2 Ubuntu 설치 (필수)
+
+### 왜 WSL이 필요한가요?
+
+Codex CLI는 macOS/Linux용으로 설계됐습니다. Windows 네이티브(PowerShell·cmd)에서는 경로·권한·인증 흐름이 깨지는 일이 많습니다. **Windows 안에서 가벼운 Linux를 띄워주는 게 WSL2** — 마이크로소프트 공식 기능, 한 줄로 설치.
+
+### 설치 절차
+
+1. **PowerShell을 관리자 권한으로 열기**
+   - 시작 메뉴 → "PowerShell" 검색 → 우클릭 → **"관리자 권한으로 실행"**
+
+2. **WSL + Ubuntu 한 번에 설치:**
+   ```powershell
+   wsl --install
+   ```
+   > 기본으로 Ubuntu가 깔립니다. 5~10분 걸림.
+
+3. **재부팅** (필요 시 자동 안내)
+
+4. **재부팅 후 Ubuntu 첫 실행** — 시작 메뉴 → "Ubuntu" 클릭
+   - 검은 창이 뜨면서 사용자명·비밀번호 설정 요청 → **간단하게 정해서 입력** (잊지 마세요)
+   - 비밀번호 입력 시 **화면에 아무것도 안 찍힙니다 (정상)** — 그냥 치고 엔터
+
+5. **Ubuntu 안에서 기본 도구 설치:**
+   ```bash
+   sudo apt update
+   sudo apt install -y git curl
+   ```
+   > 비밀번호 물어보면 4번에서 정한 거 입력.
+
+6. **Node.js 22 LTS 설치 (Ubuntu 안):**
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+   sudo apt install -y nodejs
+   node --version
+   ```
+   > `v22.x.x` 출력되면 성공. (Codex CLI는 Node 22+ 필요)
+
+✅ **0단계 성공 신호**: Ubuntu 터미널에서 `git --version`, `node --version`, `npm --version` 모두 버전이 출력됨.
+
+> 💡 **앞으로 모든 명령어는 Ubuntu 안에서 실행하세요.** PowerShell 아님. VS Code도 다음 단계에서 "WSL 모드"로 띄울 겁니다.
 
 ---
 
@@ -35,10 +103,19 @@
 이미 쓰고 있다면 **2단계로 바로 이동**.
 
 1. https://code.visualstudio.com 접속
-2. 자기 OS에 맞는 설치 파일 다운로드 → 설치
+2. 자기 OS에 맞는 설치 파일 다운로드 → 설치 — **Windows라도 Windows 버전을 받습니다 (Linux 버전 X)**. VS Code는 Windows에 깔지만 WSL Ubuntu에 원격 접속해서 작업합니다.
 3. 실행해서 창이 뜨면 OK
 
 ![VS Code 설치 직후 — 왼쪽 사이드바의 Extensions 아이콘이 다음 단계 목표](../figures/01-vscode-installed.png)
+
+### 🪟 Windows 사용자 추가 단계 — WSL Remote 확장 + WSL로 연결
+
+VS Code 안에서 작업하되, **실제 명령어는 WSL Ubuntu 안에서 돌아야** Codex CLI가 깨지지 않습니다.
+
+1. 왼쪽 사이드바 확장 아이콘(`Ctrl+Shift+X`) → 검색창에 `WSL` → Microsoft 제공 **"WSL"** 확장 → Install
+2. 좌측 하단 **파란색 `><` 아이콘** 클릭 → **"Connect to WSL"** 선택
+3. 새 창이 열리고 좌측 하단에 `WSL: Ubuntu` 표시 → 이제 모든 터미널·명령어가 Ubuntu 안에서 돕니다
+4. 이 상태로 2단계 진행
 
 ---
 
@@ -117,20 +194,6 @@ Codex가 알아서:
 
 ---
 
-## ⚠️ Windows 사용자 특별 안내
-
-Codex CLI는 **macOS/Linux 네이티브** 지원. Windows 네이티브에서 CLI를 돌리면 이슈가 생길 수 있습니다.
-
-**권장 — WSL 사용:**
-1. PowerShell을 관리자 권한으로 열기
-2. `wsl --install` 실행 → Ubuntu 설치
-3. 재부팅 후 Ubuntu 터미널 열기
-4. Ubuntu 안에서 위 가이드의 CLI 관련 단계 진행
-
-**VS Code 확장 자체는 Windows 네이티브에서도 문제없이 동작합니다.** CLI를 직접 돌릴 필요 없으면 Windows 그대로 써도 됩니다.
-
----
-
 ## 참고
 
 - **무료 체험**: ChatGPT Free/Go 계정으로 사용 가능 (한시적)
@@ -139,7 +202,7 @@ Codex CLI는 **macOS/Linux 네이티브** 지원. Windows 네이티브에서 CLI
 - **기본 모델**: GPT-5-Codex
 - **모델 변경**: `/model` 입력
 - **공식 문서**: https://developers.openai.com/codex
-- **Windows**: WSL 권장 (CLI), VS Code 확장은 네이티브 지원
+- **Windows**: WSL2 Ubuntu **필수** (0단계). VS Code는 Windows에 설치 후 WSL Remote로 연결.
 
 ---
 
@@ -150,7 +213,8 @@ Codex CLI는 **macOS/Linux 네이티브** 지원. Windows 네이티브에서 CLI
 | **터미널** | 검은 화면에 명령어 치는 도구. VS Code 안에서 ``Ctrl+` `` 로 열림. |
 | **CLI** | 터미널에서 돌아가는 프로그램. |
 | **WSL** | Windows 안에서 Linux를 돌리는 기능. `wsl --install` 한 줄로 설치. |
-| **Node.js** | AI 도구가 돌아가기 위한 엔진. 한 번만 설치. |
+| **git** | 코드·파일 버전 관리 도구. sonmat을 GitHub에서 가져올 때 필요. WSL Ubuntu에 `apt install git` 으로 설치. |
+| **Node.js** | AI 도구가 돌아가기 위한 엔진. Codex CLI는 22+ 필요. |
 | **npm** | Node.js의 설치 도구. `npm install ~~` 명령으로 프로그램 설치. |
 | **API 키** | "내 계정 비밀번호" 같은 것. 요금 청구 주소. |
 | **환경 변수** | OS가 모든 프로그램에 알려주는 설정값. `OPENAI_API_KEY` 같은 것. |

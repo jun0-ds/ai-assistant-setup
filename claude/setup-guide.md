@@ -17,16 +17,55 @@
 ## 🗺️ 전체 흐름 — 무엇을 하는 건가요?
 
 ```
-1. VS Code 설치         (에디터)
+0. 사전 요구사항 확인     (git, Node.js — 한 번만)
+        ↓
+1. VS Code 설치          (에디터)
         ↓
 2. Claude Code 확장 설치  (VS Code 안에 AI 붙이기)
         ↓
-3. 로그인 (또는 API 키)   (요금을 누구에게 받을지 알림)
+3. Claude Code CLI 설치   (npm 한 줄 — sonmat 플러그인용)
         ↓
-4. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+4. 로그인 (또는 API 키)   (요금을 누구에게 받을지 알림)
         ↓
-5. auto-setup.md 붙여넣기 (나머지는 AI가 자동 세팅)
+5. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+        ↓
+6. sonmat 플러그인 설치   (채팅창에 슬래시 2줄)
+        ↓
+7. auto-setup.md 붙여넣기 (나머지는 AI가 자동 세팅)
 ```
+
+---
+
+## 0단계: 사전 요구사항 (git · Node.js)
+
+> 💡 **왜 필요한가요?** sonmat 플러그인은 GitHub 리포를 `git clone`으로 가져옵니다. CLI 설치는 `npm`이 필요합니다. **Node.js를 깔면 npm은 자동으로 따라옵니다.**
+
+### git 확인
+
+터미널(Windows는 PowerShell, Mac은 Terminal)에서:
+
+```bash
+git --version
+```
+
+✅ `git version 2.x.x` 같은 줄이 뜨면 OK.
+
+❌ "command not found" 또는 "찾을 수 없습니다"가 뜨면 설치:
+- **Windows**: https://git-scm.com/download/win — 기본값으로 설치 (다음 다음 다음)
+- **Mac**: 터미널에서 `xcode-select --install` 실행 → 팝업의 "설치" 클릭
+- **Linux**: `sudo apt install git` (Ubuntu 계열)
+
+### Node.js 18+ 확인
+
+```bash
+node --version
+```
+
+✅ `v20.x.x` 또는 `v18` 이상이면 OK. npm은 같이 깔립니다.
+
+❌ 없거나 18 미만이면: https://nodejs.org → **LTS 버전** 다운로드 → 설치 → **터미널 새 창** 열어서 다시 확인.
+
+> ⚠️ **설치 직후엔 터미널을 새로 열어야 인식됩니다.** VS Code도 껐다 켜기.
 
 ---
 
@@ -62,7 +101,39 @@ code --install-extension AnthropicAI.claude-code
 
 ---
 
-## 3단계: 인증 (둘 중 하나)
+## 3단계: Claude Code CLI 설치
+
+> 💡 **왜?** VS Code 확장만으로도 채팅은 됩니다. 하지만 sonmat 같은 플러그인을 깔려면 `claude` 라는 명령어(CLI)가 필요해요. **한 번만 깔면 끝.**
+
+VS Code 안에서 터미널 열기 (``Ctrl+` `` 백틱 키, 또는 상단 메뉴 → Terminal → New Terminal).
+
+아래를 붙여넣고 엔터:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+> ⏱️ 1~3분 걸립니다. 진행 중 다른 창 닫지 말기.
+
+❌ **Mac/Linux에서 권한 오류(`EACCES`)** 가 뜨면:
+
+```bash
+sudo npm install -g @anthropic-ai/claude-code
+```
+
+설치 끝나면 확인:
+
+```bash
+claude --version
+```
+
+✅ **성공 신호**: 버전 번호(예: `2.0.x`)가 출력되면 OK.
+
+❌ "command not found"가 뜨면 → 터미널을 **새 창으로** 열어서 다시 시도. 그래도 안 되면 [troubleshooting.md](troubleshooting.md).
+
+---
+
+## 4단계: 인증 (둘 중 하나)
 
 ### 방법 A — Claude 구독 중 (Pro/Max)
 
@@ -84,7 +155,7 @@ Claude Pro ($20/월) 이상 구독 중이면 **추가 비용 없음**.
 
 ---
 
-## 4단계: 채팅창 열기
+## 5단계: 채팅창 열기
 
 **VS Code 왼쪽 사이드바에 Claude 아이콘이 생겼습니다** (작은 별 모양).
 
@@ -98,7 +169,31 @@ Claude Pro ($20/월) 이상 구독 중이면 **추가 비용 없음**.
 
 ---
 
-## 5단계: 나머지는 Claude에게 맡기기
+## 6단계: sonmat 플러그인 설치
+
+> 💡 **sonmat이 뭔가요?** AI가 성급하게 답하기 전에 "정말 맞나?" 한 번 더 검증하는 보조 장치입니다. 선택이지만 강력 추천.
+
+채팅창 입력란에 **슬래시(`/`)부터 시작하는 명령어**를 한 줄씩 입력 (붙여넣기 후 엔터):
+
+```
+/plugin marketplace add jun0-ds/sonmat
+```
+
+> 첫 줄 결과: "marketplace 'sonmat' added" 같은 메시지.
+
+```
+/plugin install sonmat@sonmat
+```
+
+> 두 번째 줄 결과: "Plugin sonmat@sonmat installed" 같은 메시지.
+
+✅ **성공 신호**: 두 명령어 모두 에러 없이 끝나면 완료. 설치 직후 한 번 채팅창을 닫았다 다시 열면 sonmat이 활성화됩니다.
+
+❌ **Windows에서 경로 오류**(`C:/Program Files/Git/plugin...`)가 뜨면 → Git Bash 대신 PowerShell을 쓰거나, [troubleshooting.md](troubleshooting.md)의 WSL 안내 참고.
+
+---
+
+## 7단계: 나머지는 Claude에게 맡기기
 
 채팅창이 열렸으면, 아래 파일 전체 내용을 **복사해서 채팅창에 붙여넣기**:
 
@@ -110,8 +205,6 @@ Claude가 **질문을 시작**하면 답하기만 하면 됩니다:
 - 등등
 
 Claude가 알아서:
-- Node.js / CLI 설치 확인 및 안내
-- 플러그인 설치 (sonmat — 선택, 설명 추후)
 - 글로벌 `CLAUDE.md` 생성 (호칭·기본 규칙)
 - `settings.json` 생성 (허용 명령어, 훅 등)
 - Python 도구 설치 (선택 시만)
@@ -147,6 +240,7 @@ Claude가 알아서:
 |------|----------|
 | **터미널** | 검은 화면에 명령어 치는 도구. VS Code 안에서 ``Ctrl+` `` 로 열림. |
 | **CLI** | 터미널에서 돌아가는 프로그램. |
+| **git** | 코드·파일 버전 관리 도구. sonmat 플러그인을 GitHub에서 가져올 때 필요. 한 번만 설치. |
 | **Node.js** | AI 도구가 돌아가기 위한 엔진. 한 번만 설치. |
 | **npm** | Node.js의 설치 도구. `npm install ~~` 명령으로 프로그램 설치. |
 | **API 키** | "내 계정 비밀번호" 같은 것. 요금 청구 주소. |

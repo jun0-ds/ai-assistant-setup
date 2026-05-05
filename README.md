@@ -60,6 +60,8 @@
 
 ### 비용 — 솔직하게
 
+> 📢 **오해 방지** — 이 가이드 자체는 **공개 무료 자료**(BSD 3-Clause 라이선스)입니다. 아래 비용은 OpenAI·Anthropic 등 **AI 회사에 직접 결제**하는 사용료고, 가이드 제작자에게 지불되는 게 아닙니다.
+
 - **Codex (무료 체험)**: ChatGPT 계정만 있으면 현재 무료. 한도 초과 시 유료 전환 안내가 뜸.
 - **Claude Code (유료)**: 두 가지 방식 중 하나.
   - **API 종량제**: $5부터 충전 → 가볍게 쓰면 **한 달 $3~10 정도**. 많이 쓰면 그 이상.
@@ -106,7 +108,7 @@
 | **Node.js** | 18+ | 22+ | ~~20+~~ |
 | **강점** | 깊은 분석, 긴 맥락, 플러그인 | GPT-5 기반 강력한 에이전트 | — |
 | **VS Code** | ✅ 확장 | ✅ 확장 | ~~✅~~ |
-| **Windows** | ✅ 네이티브 | ⚠️ WSL 권장 (CLI), 확장은 네이티브 | ~~✅~~ |
+| **Windows** | ✅ 네이티브 (Git for Windows 필요) | 🚨 **WSL2 필수** (CLI 안정성) | ~~✅~~ |
 | **글로벌 지침 파일** | `CLAUDE.md` | `AGENTS.md` | ~~`GEMINI.md`~~ |
 | **플러그인** | ✅ [sonmat](https://github.com/jun0-ds/sonmat) | ✅ [sonmat](https://github.com/jun0-ds/sonmat) | ~~✅~~ |
 
@@ -116,5 +118,7 @@
 
 1. 위 **"당신은 누구인가요?"** 에서 경로 고르기
 2. 해당 AI의 `setup-guide.md` 를 열고 단계별로 따라하기
+   - **Claude**: 0단계에서 git·Node.js 사전 설치 → 3단계에서 CLI(`npm install -g @anthropic-ai/claude-code`) → 6단계에서 sonmat 슬래시 설치
+   - **Codex (Windows)**: 0단계에서 WSL2 Ubuntu 설치 후 모든 작업을 Ubuntu 안에서 진행
 3. AI가 동작하면 `auto-setup.md` 내용을 첫 대화에 붙여넣기
 4. AI가 질문하면 답하기 → 세팅 끝

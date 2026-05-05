@@ -32,7 +32,7 @@
     <div class="guide-meta">
       <span class="guide-pill">🆓 <strong>무료 체험</strong> ChatGPT 계정만 있으면</span>
       <span class="guide-pill">⏱️ <strong>20~30분</strong> (처음이면)</span>
-      <span class="guide-pill">⚠️ Windows: WSL 권장 (CLI)</span>
+      <span class="guide-pill">🚨 Windows: <strong>WSL2 필수</strong> (0단계)</span>
     </div>
   </div>
 </section>
@@ -40,15 +40,75 @@
 <main class="guide-body">
 
 <h2>🗺️ 전체 흐름</h2>
-<pre><code>1. VS Code 설치         (에디터)
+<pre><code>0. 사전 요구사항
+   - Mac/Linux: git, Node.js 22+ 확인
+   - Windows: WSL2 Ubuntu 설치 (필수)
         ↓
-2. Codex 확장 설치       (VS Code 안에 AI 붙이기)
+1. VS Code 설치                (에디터)
         ↓
-3. ChatGPT 로그인         (무료 체험이면 여기서 끝)
+2. Codex 확장 설치              (VS Code 안에 AI 붙이기)
         ↓
-4. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+3. ChatGPT 로그인                (무료 체험이면 여기서 끝)
         ↓
-5. auto-setup 붙여넣기    (나머지는 AI가 자동 세팅)</code></pre>
+4. AI 채팅창 열기                (오른쪽에 패널이 뜸)
+        ↓
+5. auto-setup 붙여넣기          (나머지는 AI가 자동 세팅)</code></pre>
+
+<div class="guide-step">
+  <span class="guide-step-num">STEP 0</span>
+  <h3 style="margin-top:0">사전 요구사항</h3>
+
+  <h3>🍎 Mac · 🐧 Linux 사용자</h3>
+  <p>git과 Node.js 22+가 깔려 있어야 합니다. 터미널에서 확인:</p>
+  <pre><code>git --version
+node --version</code></pre>
+  <p>❌ 누락 시 설치:</p>
+  <ul>
+    <li><strong>git</strong> (Mac): <code>xcode-select --install</code></li>
+    <li><strong>git</strong> (Linux): <code>sudo apt install git</code></li>
+    <li><strong>Node.js</strong>: <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> → <strong>LTS 22 이상</strong> 다운로드 → 설치 → 터미널 새 창</li>
+  </ul>
+  <div class="guide-success">✅ 둘 다 버전이 출력되면 <strong>STEP 1로 이동</strong>.</div>
+
+  <hr>
+
+  <h3>🪟 Windows 사용자 — WSL2 Ubuntu 설치 (필수)</h3>
+
+  <h4>왜 WSL이 필요한가요?</h4>
+  <p>Codex CLI는 macOS/Linux용으로 설계됐습니다. Windows 네이티브(PowerShell·cmd)에서는 경로·권한·인증 흐름이 깨지는 일이 많습니다. <strong>Windows 안에서 가벼운 Linux를 띄워주는 게 WSL2</strong> — 마이크로소프트 공식 기능, 한 줄로 설치.</p>
+
+  <h3>설치 절차</h3>
+  <ol>
+    <li><strong>PowerShell을 관리자 권한으로 열기</strong>
+      <ul><li>시작 메뉴 → "PowerShell" 검색 → 우클릭 → <strong>"관리자 권한으로 실행"</strong></li></ul>
+    </li>
+    <li><strong>WSL + Ubuntu 한 번에 설치:</strong>
+      <pre><code>wsl --install</code></pre>
+      기본으로 Ubuntu가 깔립니다. 5~10분 걸림.
+    </li>
+    <li><strong>재부팅</strong> (필요 시 자동 안내)</li>
+    <li><strong>재부팅 후 Ubuntu 첫 실행</strong> — 시작 메뉴 → "Ubuntu" 클릭
+      <ul>
+        <li>검은 창이 뜨면서 사용자명·비밀번호 설정 요청 → <strong>간단하게 정해서 입력</strong> (잊지 마세요)</li>
+        <li>비밀번호 입력 시 <strong>화면에 아무것도 안 찍힙니다 (정상)</strong> — 그냥 치고 엔터</li>
+      </ul>
+    </li>
+    <li><strong>Ubuntu 안에서 기본 도구 설치:</strong>
+      <pre><code>sudo apt update
+sudo apt install -y git curl</code></pre>
+      비밀번호 물어보면 4번에서 정한 거 입력.
+    </li>
+    <li><strong>Node.js 22 LTS 설치 (Ubuntu 안):</strong>
+      <pre><code>curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version</code></pre>
+      <code>v22.x.x</code> 출력되면 성공. (Codex CLI는 Node 22+ 필요)
+    </li>
+  </ol>
+
+  <div class="guide-success">✅ <strong>STEP 0 성공 신호</strong>: Ubuntu 터미널에서 <code>git --version</code>, <code>node --version</code>, <code>npm --version</code> 모두 버전이 출력됨.</div>
+  <div class="guide-tip">💡 앞으로 모든 명령어는 <strong>Ubuntu 안에서</strong> 실행하세요. PowerShell 아님. VS Code도 다음 단계에서 "WSL 모드"로 띄울 겁니다.</div>
+</div>
 
 <div class="guide-step">
   <span class="guide-step-num">STEP 1</span>
@@ -56,10 +116,19 @@
   <p>이미 쓰고 있다면 <strong>2단계로 바로 이동</strong>.</p>
   <ol>
     <li><a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a> 접속</li>
-    <li>자기 OS에 맞는 설치 파일 다운로드 → 설치</li>
+    <li>자기 OS에 맞는 설치 파일 다운로드 → 설치 — <strong>Windows라도 Windows 버전을 받습니다</strong>. VS Code는 Windows에 깔지만 WSL Ubuntu에 원격 접속해서 작업합니다.</li>
     <li>실행해서 창이 뜨면 OK</li>
   </ol>
   <img src="../figures/01-vscode-installed.png" alt="VS Code 설치 직후">
+
+  <h3>🪟 Windows 사용자 추가 단계 — WSL Remote 확장 + WSL로 연결</h3>
+  <p>VS Code 안에서 작업하되, <strong>실제 명령어는 WSL Ubuntu 안에서 돌아야</strong> Codex CLI가 깨지지 않습니다.</p>
+  <ol>
+    <li>왼쪽 사이드바 확장 아이콘(<code>Ctrl+Shift+X</code>) → 검색창에 <code>WSL</code> → Microsoft 제공 <strong>"WSL"</strong> 확장 → Install</li>
+    <li>좌측 하단 <strong>파란색 <code>&gt;&lt;</code> 아이콘</strong> 클릭 → <strong>"Connect to WSL"</strong> 선택</li>
+    <li>새 창이 열리고 좌측 하단에 <code>WSL: Ubuntu</code> 표시 → 이제 모든 터미널·명령어가 Ubuntu 안에서 돕니다</li>
+    <li>이 상태로 STEP 2 진행</li>
+  </ol>
 </div>
 
 <div class="guide-step">
@@ -90,6 +159,7 @@
     <li>환경 변수 <code>OPENAI_API_KEY</code> 로 설정 (auto-setup 단계에서 AI가 안내)</li>
   </ol>
   <div class="guide-success">✅ <strong>성공 신호</strong>: 채팅창 하단에 모델 이름 (<code>GPT-5-Codex</code> 등)이 뜨면 인증 완료.</div>
+  <div class="guide-tip">📢 <strong>오해 방지</strong>: 무료 체험·유료 결제 모두 <strong>OpenAI에 직접</strong> 이뤄집니다. 이 가이드는 공개 무료 자료(BSD 3-Clause)고, 가이드 제작자에게 지불되는 게 아닙니다.</div>
 </div>
 
 <div class="guide-step">

@@ -34,9 +34,9 @@
 ---
 
 질문 답변을 받았으면 아래 작업을 순서대로 실행해줘.
-OS를 먼저 확인하고, Windows면 WSL/PowerShell 명령어를, Mac/Linux면 bash 명령어를 사용해.
+모든 명령어는 bash 기준으로 실행한다.
 
-> **Windows 사용자 참고:** Codex CLI는 macOS/Linux 네이티브 지원. Windows에서는 WSL 사용을 권장.
+> **Windows 사용자 전제:** setup-guide.md의 0단계에 따라 **WSL2 Ubuntu가 이미 설치**되어 있고, VS Code가 WSL Remote 모드로 연결된 상태여야 한다. PowerShell이나 cmd 분기는 사용하지 않는다 — 셸이 PowerShell이면 사용자에게 "WSL Ubuntu 터미널로 전환"을 먼저 요청할 것.
 
 ## 1. 기존 설정 백업
 
@@ -86,16 +86,13 @@ codex
 
 > ⚠️ **보안 주의:** API 키는 민감 정보입니다. `.bashrc`에 직접 넣는 대신 `.env` 파일이나 시크릿 관리 도구 사용을 권장합니다. 아래는 가장 간단한 방법이지만, 이 파일은 **절대 git에 커밋하지 마세요.**
 
-**Mac/Linux (bash/zsh):**
+**bash/zsh (Mac · Linux · Windows WSL):**
 ```bash
 echo 'export OPENAI_API_KEY="여기에_API_키_입력"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**Windows (PowerShell):**
-```powershell
-[Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "여기에_API_키_입력", "User")
-```
+> Windows 사용자는 PowerShell이 아닌 **WSL Ubuntu 터미널** 안에서 위 명령을 실행한다. WSL 안의 환경변수와 Windows 환경변수는 별개다.
 
 ## 4. sonmat 설치 (AI 사고·검증 규율 체계)
 
@@ -172,17 +169,13 @@ Available skills (`~/.codex/sonmat/skills/`):
 
 ### uv 설치
 
-먼저 `uv --version`으로 설치 여부 확인. 없으면:
+먼저 `uv --version`으로 설치 여부 확인. 없으면 (Mac · Linux · Windows WSL 공통):
 
-**Windows (PowerShell):**
-```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
-
-**Mac/Linux / WSL:**
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+> Windows는 **WSL Ubuntu 안에서** 실행. PowerShell 사용 금지 (Codex CLI 환경과 분리됨).
 
 ### ruff 설치
 

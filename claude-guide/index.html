@@ -40,15 +40,44 @@
 <main class="guide-body">
 
 <h2>🗺️ 전체 흐름</h2>
-<pre><code>1. VS Code 설치         (에디터)
+<pre><code>0. 사전 요구사항 확인     (git, Node.js — 한 번만)
+        ↓
+1. VS Code 설치          (에디터)
         ↓
 2. Claude Code 확장 설치  (VS Code 안에 AI 붙이기)
         ↓
-3. 로그인 (또는 API 키)   (요금을 누구에게 받을지 알림)
+3. Claude Code CLI 설치   (npm 한 줄 — sonmat 플러그인용)
         ↓
-4. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+4. 로그인 (또는 API 키)   (요금을 누구에게 받을지 알림)
         ↓
-5. auto-setup 붙여넣기    (나머지는 AI가 자동 세팅)</code></pre>
+5. AI 채팅창 열기         (오른쪽에 패널이 뜸)
+        ↓
+6. sonmat 플러그인 설치   (채팅창에 슬래시 2줄)
+        ↓
+7. auto-setup 붙여넣기    (나머지는 AI가 자동 세팅)</code></pre>
+
+<div class="guide-step">
+  <span class="guide-step-num">STEP 0</span>
+  <h3 style="margin-top:0">사전 요구사항 (git · Node.js)</h3>
+  <p>💡 <strong>왜 필요한가요?</strong> sonmat 플러그인은 GitHub 리포를 <code>git clone</code>으로 가져옵니다. CLI 설치는 <code>npm</code>이 필요합니다. <strong>Node.js를 깔면 npm은 자동으로 따라옵니다.</strong></p>
+
+  <h3>git 확인</h3>
+  <p>터미널 (Windows: PowerShell · Mac: Terminal)에서:</p>
+  <pre><code>git --version</code></pre>
+  <div class="guide-success">✅ <code>git version 2.x.x</code> 같은 줄이 뜨면 OK.</div>
+  <p>❌ "command not found" 또는 "찾을 수 없습니다"가 뜨면 설치:</p>
+  <ul>
+    <li><strong>Windows</strong>: <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a> — 기본값으로 설치 (다음 다음 다음)</li>
+    <li><strong>Mac</strong>: <code>xcode-select --install</code> → 팝업의 "설치" 클릭</li>
+    <li><strong>Linux</strong>: <code>sudo apt install git</code> (Ubuntu 계열)</li>
+  </ul>
+
+  <h3>Node.js 18+ 확인</h3>
+  <pre><code>node --version</code></pre>
+  <div class="guide-success">✅ <code>v20.x.x</code> 또는 <code>v18</code> 이상이면 OK. npm은 같이 깔립니다.</div>
+  <p>❌ 없거나 18 미만이면: <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> → <strong>LTS 버전</strong> 다운로드 → 설치 → <strong>터미널 새 창</strong> 열어서 다시 확인.</p>
+  <div class="guide-tip">⚠️ 설치 직후엔 터미널을 새로 열어야 인식됩니다. VS Code도 껐다 켜기.</div>
+</div>
 
 <div class="guide-step">
   <span class="guide-step-num">STEP 1</span>
@@ -76,6 +105,21 @@
 
 <div class="guide-step">
   <span class="guide-step-num">STEP 3</span>
+  <h3 style="margin-top:0">Claude Code CLI 설치 (npm)</h3>
+  <p>💡 <strong>왜?</strong> VS Code 확장만으로도 채팅은 됩니다. 하지만 sonmat 같은 플러그인을 깔려면 <code>claude</code>라는 명령어(CLI)가 필요해요. <strong>한 번만 깔면 끝.</strong></p>
+  <p>VS Code 안에서 터미널 열기 (<code>Ctrl+`</code> 백틱 키, 또는 상단 메뉴 → Terminal → New Terminal). 아래를 붙여넣고 엔터:</p>
+  <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+  <div class="guide-tip">⏱️ 1~3분 걸립니다. 진행 중 다른 창 닫지 말기.</div>
+  <p>❌ <strong>Mac/Linux에서 권한 오류(<code>EACCES</code>)</strong>가 뜨면:</p>
+  <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+  <p>설치 끝나면 확인:</p>
+  <pre><code>claude --version</code></pre>
+  <div class="guide-success">✅ 버전 번호(예: <code>2.0.x</code>)가 출력되면 OK.</div>
+  <p>❌ "command not found"가 뜨면 → 터미널을 <strong>새 창으로</strong> 열어서 다시 시도.</p>
+</div>
+
+<div class="guide-step">
+  <span class="guide-step-num">STEP 4</span>
   <h3 style="margin-top:0">인증 (둘 중 하나)</h3>
 
   <h3>방법 A — Claude 구독 중 (Pro/Max)</h3>
@@ -91,11 +135,12 @@
     <li>VS Code의 Claude Code 패널에서 API 키 붙여넣기</li>
   </ol>
   <div class="guide-tip">💡 <strong>실감 비용</strong>: $5면 가볍게 쓰면 <strong>한 달 정도</strong> 사용 가능. 많이 쓰면 며칠에 소진.</div>
+  <div class="guide-tip">📢 <strong>오해 방지</strong>: 결제는 위 절차대로 <strong>Anthropic에 직접</strong> 하는 것입니다. 이 가이드는 공개 무료 자료(BSD 3-Clause)고, 가이드 제작자에게 지불되는 게 아닙니다.</div>
   <div class="guide-success">✅ <strong>성공 신호</strong>: 채팅창 하단에 모델 이름 (<code>Claude Sonnet 4.6</code> 등)이 뜨면 인증 완료.</div>
 </div>
 
 <div class="guide-step">
-  <span class="guide-step-num">STEP 4</span>
+  <span class="guide-step-num">STEP 5</span>
   <h3 style="margin-top:0">채팅창 열기</h3>
   <p><strong>VS Code 왼쪽 사이드바에 Claude 아이콘이 생겼습니다</strong> (작은 별 모양).</p>
   <p>클릭하면 오른쪽에 채팅 패널이 열림. ChatGPT 웹과 비슷한 입력창이 보임.</p>
@@ -107,7 +152,20 @@
 </div>
 
 <div class="guide-step">
-  <span class="guide-step-num">STEP 5</span>
+  <span class="guide-step-num">STEP 6</span>
+  <h3 style="margin-top:0">sonmat 플러그인 설치</h3>
+  <p>💡 <strong>sonmat이 뭔가요?</strong> AI가 성급하게 답하기 전에 "정말 맞나?" 한 번 더 검증하는 보조 장치입니다. 선택이지만 강력 추천.</p>
+  <p>채팅창 입력란에 <strong>슬래시(<code>/</code>)부터 시작하는 명령어</strong>를 한 줄씩 입력 (붙여넣기 후 엔터):</p>
+  <pre><code>/plugin marketplace add jun0-ds/sonmat</code></pre>
+  <p>첫 줄 결과: "marketplace 'sonmat' added" 같은 메시지.</p>
+  <pre><code>/plugin install sonmat@sonmat</code></pre>
+  <p>두 번째 줄 결과: "Plugin sonmat@sonmat installed" 같은 메시지.</p>
+  <div class="guide-success">✅ 두 명령어 모두 에러 없이 끝나면 완료. 설치 직후 채팅창을 닫았다 다시 열면 sonmat이 활성화됩니다.</div>
+  <p>❌ <strong>Windows에서 경로 오류</strong>(<code>C:/Program Files/Git/plugin...</code>)가 뜨면 → Git Bash 대신 PowerShell을 쓰거나, <a href="https://github.com/jun0-ds/ai-assistant-setup/blob/main/claude/troubleshooting.md" target="_blank" rel="noopener">troubleshooting.md</a>의 WSL 안내 참고.</p>
+</div>
+
+<div class="guide-step">
+  <span class="guide-step-num">STEP 7</span>
   <h3 style="margin-top:0">나머지는 Claude에게 맡기기</h3>
   <p>채팅창이 열렸으면, <strong>auto-setup 프롬프트를 복사해서 채팅창에 붙여넣기</strong>:</p>
   <p>📋 <a href="https://github.com/jun0-ds/ai-assistant-setup/blob/main/claude/auto-setup.md" target="_blank" rel="noopener"><strong>auto-setup.md</strong></a> — 이 파일을 열고, 내용 전체 선택(<code>Ctrl+A</code>) → 복사(<code>Ctrl+C</code>) → Claude 채팅창에 붙여넣기(<code>Ctrl+V</code>) → 엔터.</p>
@@ -118,10 +176,9 @@
   </ul>
   <p>Claude가 알아서:</p>
   <ul>
-    <li>Node.js / CLI 설치 확인 및 안내</li>
-    <li>플러그인 설치 (sonmat — 선택)</li>
     <li>글로벌 <code>CLAUDE.md</code> 생성 (호칭·기본 규칙)</li>
-    <li><code>settings.json</code> 생성</li>
+    <li><code>settings.json</code> 생성 (sonmat 훅·권한 등)</li>
+    <li>Python 도구 설치 (선택 시만)</li>
   </ul>
   <div class="guide-success">✅ <strong>성공 신호</strong>: Claude가 마지막에 "세팅 완료! 이제 시작하세요." 라고 말하면 끝.</div>
 </div>
