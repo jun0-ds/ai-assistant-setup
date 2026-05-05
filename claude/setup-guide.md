@@ -29,9 +29,11 @@
         ↓
 5. AI 채팅창 열기         (오른쪽에 패널이 뜸)
         ↓
-6. sonmat 플러그인 설치   (채팅창에 슬래시 2줄)
+6. 권한 사전 설정         (settings.json — 매번 묻는 프롬프트 차단)
         ↓
-7. auto-setup.md 붙여넣기 (나머지는 AI가 자동 세팅)
+7. sonmat 플러그인 설치   (채팅창에 슬래시 2줄)
+        ↓
+8. auto-setup.md 붙여넣기 (나머지는 AI가 자동 세팅)
 ```
 
 ---
@@ -169,7 +171,86 @@ Claude Pro ($20/월) 이상 구독 중이면 **추가 비용 없음**.
 
 ---
 
-## 6단계: sonmat 플러그인 설치
+## 6단계: 권한 사전 설정 (settings.json)
+
+> 💡 **왜 먼저?** Claude는 git/npm/python 같은 명령을 처음 쓸 때마다 **"실행해도 될까요?"** 권한 프롬프트를 띄웁니다. 매번 클릭하기 귀찮으니 **자주 쓰는 안전 명령은 미리 허용 목록에 넣어두고 시작**합니다.
+
+### 6-1. `~/.claude/` 디렉토리 + 파일 만들기
+
+VS Code 터미널 (``Ctrl+` ``) 열고 OS에 맞는 명령 실행:
+
+**Mac · Linux · Windows WSL (bash):**
+
+```bash
+mkdir -p ~/.claude && cat > ~/.claude/settings.json <<'EOF'
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(uv *)",
+      "Bash(uvx *)",
+      "Bash(ruff *)",
+      "Bash(mkdir *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(curl *)"
+    ]
+  }
+}
+EOF
+```
+
+**Windows (PowerShell):**
+
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude" | Out-Null
+@'
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(uv *)",
+      "Bash(uvx *)",
+      "Bash(ruff *)",
+      "Bash(mkdir *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(curl *)"
+    ]
+  }
+}
+'@ | Set-Content -Path "$env:USERPROFILE\.claude\settings.json" -Encoding UTF8
+```
+
+### 6-2. 확인
+
+```bash
+cat ~/.claude/settings.json
+```
+
+✅ **성공 신호**: 위에서 붙여넣은 JSON이 그대로 출력되면 OK. 채팅창에서 Claude가 재로드(자동) 후 위 명령들은 이제 묻지 않고 바로 실행됩니다.
+
+> 🔒 **이 목록 안전한가요?** 모두 자기 컴퓨터 안에서 도는 일반 개발 명령들이고 `rm -rf`·`sudo` 같은 위험 명령은 빠져 있습니다. 다른 명령은 여전히 권한 프롬프트가 뜨므로 그때그때 확인하면 됩니다.
+
+> 💡 **나중에 더 추가하고 싶으면?** Claude에게 "settings.json의 allow 목록에 X 추가해줘"라고 부탁하면 됨.
+
+---
+
+## 7단계: sonmat 플러그인 설치
 
 > 💡 **sonmat이 뭔가요?** AI가 성급하게 답하기 전에 "정말 맞나?" 한 번 더 검증하는 보조 장치입니다. 선택이지만 강력 추천.
 
@@ -193,7 +274,7 @@ Claude Pro ($20/월) 이상 구독 중이면 **추가 비용 없음**.
 
 ---
 
-## 7단계: 나머지는 Claude에게 맡기기
+## 8단계: 나머지는 Claude에게 맡기기
 
 채팅창이 열렸으면, 아래 파일 전체 내용을 **복사해서 채팅창에 붙여넣기**:
 

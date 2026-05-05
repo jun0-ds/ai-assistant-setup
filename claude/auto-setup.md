@@ -26,8 +26,9 @@
    - API 키 → API 키 입력 안내 포함
 
 3. **이미 ~/.claude/settings.json이 존재하나요?**
-   - Yes → 4번(병합 모드)로 처리, 기존 키는 건드리지 않고 sonmat 관련 키만 병합
-   - No → 처음부터 전체 세팅 (1번 백업은 어차피 빈 폴더면 스킵)
+   - **setup-guide.md 6단계를 따라왔다면 → 있음 (Yes로 답)**. permissions만 들어있을 것.
+   - Yes → 4번(병합 모드)로 처리. 기존 `permissions.allow` 등은 절대 건드리지 말고 `hooks.SessionStart`·`enabledPlugins`·`extraKnownMarketplaces`만 병합.
+   - No → 처음부터 전체 세팅 (1번 백업은 빈 폴더면 스킵)
 
 4. **AI에게 원하는 호칭이나 말투가 있나요?** (자유롭게 답변)
    - 예: "나를 '선배'라고 불러줘, 너는 '막내'야"
@@ -38,7 +39,7 @@
 ---
 
 질문 답변을 받았으면 아래 작업을 순서대로 실행해줘.
-OS를 먼저 확인해 — Windows면 PowerShell, Mac/Linux면 bash. (Windows에서 sonmat 슬래시 명령은 setup-guide.md 6단계에서 이미 처리됨.)
+OS를 먼저 확인해 — Windows면 PowerShell, Mac/Linux면 bash. (Windows에서 sonmat 슬래시 명령은 setup-guide.md 7단계에서 이미 처리됨.)
 
 > **기존 Claude Code 세팅이 있어도 OK.** 기존 설정 파일은 `.bak`으로 백업 후 새 설정으로 교체함. (사전 질문 3번에서 Yes면 병합 모드로 처리.)
 
@@ -99,7 +100,7 @@ mkdir -p ~/.claude
 `~/.claude/CLAUDE.md` 파일 생성:
 
 > **sonmat의 사고규율(Thinking/Action Rules)은 여기에 직접 쓰지 않는다.**
-> setup-guide.md 6단계에서 설치한 sonmat 플러그인의 session-start 훅이 첫 실행 시
+> setup-guide.md 7단계에서 설치한 sonmat 플러그인의 session-start 훅이 첫 실행 시
 > `~/.claude/CLAUDE.md`에 discipline 파일 참조 블록(`## sonmat`)을 자동으로 심는다.
 > Claude Code는 해당 경로의 최신 파일을 매 세션마다 읽으므로,
 > sonmat이 업데이트되면 규율도 자동으로 최신화된다.
@@ -144,9 +145,9 @@ Global instructions for all projects.
 > - Memory: `~/.claude/sonmat/memory/`
 > ```
 
-### settings.json 생성
+### settings.json 생성/병합
 
-`~/.claude/settings.json` 파일 생성:
+> ⚠️ **주의**: setup-guide.md 6단계에서 사용자가 이미 `~/.claude/settings.json`을 만들어 둔 상태가 default다. 이 경우 **`permissions.allow`를 절대 덮어쓰지 말고**, 아래 `hooks.SessionStart`·`enabledPlugins`·`extraKnownMarketplaces` 키만 추가 병합한다. 새로 만드는 경우에만 아래 전체 템플릿 사용.
 
 > **Windows/Mac/Linux 자동 분기:** 아래 스크립트에서 OS를 확인하여 sonmat 훅 경로를 자동 결정한다.
 > - `run-hook.cmd`가 존재하면 `.cmd` 사용 (Windows)

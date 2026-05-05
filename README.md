@@ -118,7 +118,7 @@
 
 1. 위 **"당신은 누구인가요?"** 에서 경로 고르기
 2. 해당 AI의 `setup-guide.md` 를 열고 단계별로 따라하기
-   - **Claude**: 0단계에서 git·Node.js 사전 설치 → 3단계에서 CLI(`npm install -g @anthropic-ai/claude-code`) → 6단계에서 sonmat 슬래시 설치
+   - **Claude**: 0단계 git·Node 사전 설치 → 3단계 CLI 설치 → **6단계 권한 사전 설정(매번 묻는 프롬프트 차단)** → 7단계 sonmat 슬래시 설치 → 8단계 auto-setup
    - **Codex (Windows)**: 0단계에서 WSL2 Ubuntu 설치 후 모든 작업을 Ubuntu 안에서 진행
 3. AI가 동작하면 `auto-setup.md` 내용을 첫 대화에 붙여넣기
 4. AI가 질문하면 답하기 → 세팅 끝
