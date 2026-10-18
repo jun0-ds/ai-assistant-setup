@@ -2,31 +2,44 @@
 
 Windows에서 Claude Code와 Codex 중 사용할 계정이 있는 하나를 고르세요. WSL이나 VS Code를 먼저 준비할 필요는 없어요. 두 회사의 로그인과 이용 요금은 별개예요. 이용 가능 여부는 각 공식 안내에서 확인해요.
 
-## PowerShell 열기
+순서는 **1. PowerShell 열기 → 2. 하나만 설치·로그인 → 3. 첫 답변 확인 → 4. 첫 요청 전달**이에요.
+
+## 1. PowerShell 열기
 
 시작 메뉴에서 Windows PowerShell을 검색해 일반 창으로 열어요. `PS C:\…>`가 보이면 맞아요. 처음부터 관리자 창을 열지는 않아요.
 
-아래에서 고른 설치 명령 하나만 실행해요. 공식 서버에서 설치 프로그램을 받아 실행하므로 주소를 확인하세요.
+## 2. 에이전트 하나만 설치하고 로그인하기
+
+Claude Code와 Codex 중 **고른 쪽의 2-1부터 2-3까지만** 따라가요. 둘 다 설치할 필요는 없어요. 공식 서버에서 설치 프로그램을 받아 실행하므로 주소를 확인하세요.
 
 <a id="claude"></a>
-## Claude Code
+### Claude Code
+
+**2-1. 설치 명령 실행하기**
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
 
-설치가 끝나면 **PowerShell을 닫고 새로 열어서** 확인해요.
+**2-2. PowerShell을 닫고 새로 열어 설치 확인하기**
 
 ```powershell
 Get-Command claude -All
 claude --version
+```
+
+**2-3. 실행하고 로그인하기**
+
+```powershell
 claude
 ```
 
 화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. 설치 중 다운로드 표시가 잠시 없을 수 있어요. [공식 설치 안내](https://code.claude.com/docs/en/setup)
 
 <a id="codex"></a>
-## Codex
+### Codex
+
+**2-1. 설치 명령 실행하기**
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
@@ -34,17 +47,22 @@ powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1
 
 공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요.
 
-설치가 끝나면 **PowerShell을 닫고 새로 열어서** 확인해요.
+**2-2. PowerShell을 닫고 새로 열어 설치 확인하기**
 
 ```powershell
 Get-Command codex -All
 codex --version
+```
+
+**2-3. 실행하고 로그인하기**
+
+```powershell
 codex
 ```
 
 제공되는 인증 방법에서 본인의 계정으로 로그인해요. 브라우저 로그인과 필요한 최초 권한 설정은 직접 완료해요. [공식 CLI 안내](https://developers.openai.com/codex/cli) · [Windows 안내](https://developers.openai.com/codex/windows)
 
-## 첫 답변 받기
+## 3. 첫 답변 확인하기
 
 실행한 에이전트에 이렇게 보내요.
 
@@ -52,7 +70,11 @@ codex
 Windows 네이티브에서 처음 쓰고 있어요. 지금은 파일을 바꾸지 말고, 대화할 준비가 됐는지 짧게 답해줘요.
 ```
 
-실제 답변을 받으면 [첫 요청](../prompts/start.md)을 이어서 보내세요. 이후 환경 진단과 설치 준비는 에이전트가 진행해요. 직접 할 일은 한 번에 하나씩 알려줄 거예요.
+실제 답변이 돌아오면 4단계로 가요. 실행이나 로그인이 안 됐다면 아래 문제 해결 안내부터 확인해요.
+
+## 4. 첫 요청을 에이전트에 전달하기
+
+[첫 요청](../prompts/start.md)을 복사해 지금 답변한 에이전트에 이어서 보내세요. 이후 환경 진단과 설치 준비는 에이전트가 진행해요. 직접 할 일은 한 번에 하나씩 알려줄 거예요.
 
 ## 실행 명령을 못 찾으면
 
