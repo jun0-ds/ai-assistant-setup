@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}} · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록">{{navigation}}</nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a>{{content}}
+        <div class="document-end">
+          <a href="../{{source}}">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

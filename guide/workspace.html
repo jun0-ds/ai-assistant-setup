@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>작업공간 준비 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html" aria-current="page">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="02--문턱과-작업공간">02 · 문턱과 작업공간</h1>
+<h2 id="입력">입력</h2>
+<table>
+<thead>
+<tr>
+<th>자료</th>
+<th>범위</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>state/setup-status.md</code></td>
+<td>환경·기존 경로</td>
+<td>같은 계정·환경에서 이어가요.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jun0-ds/munteok/tree/v0.2.0">문턱 v0.2.0</a></td>
+<td>README·setup.ps1·VERSION</td>
+<td>사용하는 설치 계약이에요.</td>
+</tr>
+<tr>
+<td><a href="workspace-files.html">작업공간</a></td>
+<td>전체</td>
+<td>공통/프로젝트 문맥을 나눠요.</td>
+</tr>
+</tbody></table>
+<h2 id="진행">진행</h2>
+<ol>
+<li>업무·개인 파일을 둘 작업공간 위치를 정해요. 기본 제안은 실제 Windows 문서 폴더의 <code>AgentWorkspace</code>예요. 이미 알려준 경로는 유지하고 OneDrive 등 실제 문서 경로를 확인해요.</li>
+<li><a href="https://github.com/jun0-ds/munteok/archive/refs/tags/v0.2.0.zip">문턱 v0.2.0 ZIP</a>을 준비 폴더 <code>source/</code>에 받아 VERSION·setup.ps1을 읽어요. 재귀 clone·SSH 키 등록은 필요 없어요.</li>
+<li><code>powershell -NoProfile -ExecutionPolicy Bypass -File &lt;munteok-source&gt;/setup.ps1 -WorkspaceRoot &lt;절대경로&gt;</code>로 설치해요. 소스와 작업공간을 분리해요. 컴퓨터 전체 실행 정책은 바꾸지 않아요.</li>
+<li>root AGENTS·CLAUDE adapter·CONTEXT, <code>.munteok</code>, 업무·개인·보관을 확인해요. 기존 파일을 초기화하지 않아요. 비관리 CLAUDE 충돌이 있으면 자동 이관 대신 기존 지침을 확인해요.</li>
+<li>호칭·협업 방식은 공통 core, 회사·개인 자료는 해당 범위에 두도록 안내해요. 불필요하게 긴 사용자 프로필을 수집하지 않아요.</li>
+<li>손맛은 <a href="https://github.com/jun0-ds/sonmat#install">해당 에이전트 설치 경로</a>로 연결하고 더듬이는 <a href="https://github.com/jun0-ds/deodeumi">검색 방법론</a>을 연결해요. 손맛 훅의 Bash 의존성이 있으면 Git for Windows만 별도 확인해요. 보부상·사랑채·자동 동기화는 기본 설치하지 않아요.</li>
+<li>새 작업공간에서 에이전트를 열어 AGENTS/CLAUDE→CONTEXT→선택한 범위의 문맥을 실제 읽는지 확인해요. 폴더가 존재한다고 통과시키지 않아요. 새 세션이 필요하면 상태를 먼저 저장해요.</li>
+</ol>
+<h2 id="출력">출력</h2>
+<p>작업공간·문턱 소스/데이터·버전·인덱스 위치, 기존 파일 보존, 손맛/더듬이 연결과 미확인을 기록해요.</p>
+<p>통과하면 <a href="paseo.html">03 Paseo</a>로 가요. 릴리스·설치 계약이 다르면 임의의 다른 버전을 성공으로 간주하지 말고 <a href="troubleshooting.html#%EB%B2%84%EC%A0%84%EA%B3%BC-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C">버전 오류</a>를 확인해요.</p>
+
+        <div class="document-end">
+          <a href="../stages/02-workspace/CONTEXT.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

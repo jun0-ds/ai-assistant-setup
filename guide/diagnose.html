@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>컴퓨터 상태 확인 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html" aria-current="page">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="01--환경-진단">01 · 환경 진단</h1>
+<h2 id="입력">입력</h2>
+<table>
+<thead>
+<tr>
+<th>자료</th>
+<th>범위</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="windows-paths.html">Windows 경로</a></td>
+<td>현재 증상</td>
+<td>실제 바이너리와 실행 환경을 구분해요.</td>
+</tr>
+<tr>
+<td><code>state/setup-status.md</code></td>
+<td>있다면 전체</td>
+<td>기존 상태부터 이어가요.</td>
+</tr>
+<tr>
+<td><a href="../scripts/Test-SetupEnvironment.ps1">진단 스크립트</a></td>
+<td>실행 전 전체</td>
+<td>검사 범위와 출력을 확인해요.</td>
+</tr>
+</tbody></table>
+<h2 id="진행">진행</h2>
+<ol>
+<li>Windows 네이티브인지 WSL인지 확인해요. Windows 안내를 WSL 셸에서 실행하지 않아요.</li>
+<li>준비 폴더는 실제 문서 폴더의 <code>AgentSetup</code>, 소스는 <code>source/</code>, 기록은 <code>state/</code>로 나눠요. 사용자가 정한 위치가 있으면 유지해요. 상태는 공개 Git에 올리지 않아요.</li>
+<li>선택한 에이전트만 <code>Get-Command &lt;agent&gt; -All</code>, 실제 파일 존재, <code>--version</code>으로 검사해요. 별칭·함수·npm shim과 실제 실행파일을 구분해요.</li>
+<li><code>powershell -NoProfile -File &lt;source&gt;/scripts/Test-SetupEnvironment.ps1 -Agent codex</code>처럼 진단해요. Claude면 <code>-Agent claude</code>예요. 변경 없는 진단이며 결과는 로컬에만 저장해요.</li>
+<li>PATH를 고쳤다면 새 PowerShell에서 재확인해요. 이 결과로 Paseo 데몬의 인식까지 통과했다고 적지 않아요.</li>
+<li>지금 실제 응답을 받고 본인의 의도한 계정을 사용하는지 확인해요. 인증 파일 내용이나 토큰은 출력하지 않아요.</li>
+<li>기존 Paseo·Tailscale·문턱의 위치·버전·구동 방식을 확인해요. 재설치나 초기화부터 하지 않아요.</li>
+</ol>
+<h2 id="출력">출력</h2>
+<p>로컬 상태에 버전 <code>1.0.0</code>, 네이티브/WSL, 선택 에이전트의 실제 경로·버전·PowerShell 검사·실제 응답, 기존 도구와 남은 문제를 기록해요.</p>
+<p>실패하면 해당 검사부터 복구하고, 통과하면 <a href="workspace.html">02 작업공간</a>으로 가요.</p>
+
+        <div class="document-end">
+          <a href="../stages/01-diagnose/CONTEXT.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

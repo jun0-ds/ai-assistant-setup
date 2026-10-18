@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>공식 자료 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html" aria-current="page">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="공식-자료와-확인-범위">공식 자료와 확인 범위</h1>
+<p>확인일: 2026-10-19 KST. 설치 명령·설정 계약은 아래 공식 문서를 대조했어요. 계정별 이용 가능 여부·요금·모델은 이 가이드에서 고정하지 않아요. 새 버전이나 오류가 생기면 현재 설치된 버전과 공식 문서를 다시 대조해요.</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>원천</th>
+<th>이번 가이드에 반영한 범위</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Codex 최초 설치</td>
+<td><a href="https://developers.openai.com/codex/cli">CLI</a>, <a href="https://learn.chatgpt.com/docs/codex/cli.md">Markdown 원문</a></td>
+<td>Windows 공식 standalone PowerShell 설치·CLI 로그인</td>
+</tr>
+<tr>
+<td>Codex Windows</td>
+<td><a href="https://developers.openai.com/codex/windows">Windows</a></td>
+<td>네이티브 사용 가능·현재 권한 안내는 공식 설정 따름</td>
+</tr>
+<tr>
+<td>Claude Code</td>
+<td><a href="https://code.claude.com/docs/en/setup">설치</a></td>
+<td>네이티브 설치·새 창·PATH·선택적 Git for Windows</td>
+</tr>
+<tr>
+<td>Paseo</td>
+<td><a href="https://paseo.sh/docs">시작</a>, <a href="https://paseo.sh/docs/providers">제공자</a></td>
+<td>데스크톱 내장 데몬·외부 CLI 사용</td>
+</tr>
+<tr>
+<td>경로 진단</td>
+<td><a href="https://paseo.sh/docs/troubleshooting">문제 해결</a></td>
+<td>daemon PATH·resolved path·Windows 시작 환경·reload</td>
+</tr>
+<tr>
+<td>네트워크</td>
+<td><a href="https://paseo.sh/docs/connectivity">연결</a>, <a href="https://paseo.sh/docs/security">보안</a></td>
+<td>localhost·Tailnet direct·릴레이·인증·실사용 검증</td>
+</tr>
+<tr>
+<td>Tailscale TCP</td>
+<td><a href="https://tailscale.com/docs/reference/tailscale-cli/serve">Serve CLI</a>, <a href="https://tailscale.com/docs/reference/examples/serve">Windows 예제</a></td>
+<td>raw TCP·백그라운드·포트별 해제·관리자 조작</td>
+</tr>
+<tr>
+<td>문턱</td>
+<td><a href="https://github.com/jun0-ds/munteok">저장소</a></td>
+<td>Windows core 설치·라우팅·사용자 데이터 보존</td>
+</tr>
+<tr>
+<td>손맛·더듬이</td>
+<td><a href="https://github.com/jun0-ds/sonmat">손맛</a>, <a href="https://github.com/jun0-ds/deodeumi">더듬이</a></td>
+<td>검증 규율·검색 방법론 원천 연결</td>
+</tr>
+<tr>
+<td>ICM</td>
+<td><a href="https://github.com/RinDig/Interpreted-Context-Methdology">원천</a>, <a href="https://github.com/RinDig/Interpreted-Context-Methdology/blob/main/_core/CONVENTIONS.md">구성 원칙</a></td>
+<td>선택 로딩·단계 입력/진행/출력·참고/작업 파일 분리</td>
+</tr>
+</tbody></table>
+<p>Tailscale TCP 전달을 localhost Paseo에 조합한 경로는 원천 기능을 이용한 구성안이에요. Paseo 공식 문서가 이 조합 전체를 직접 보장한다는 뜻은 아니에요. 실제 Windows/휴대폰 왕복과 재부팅 지속성은 설치할 기기에서 검증해요. TCP 연결이나 provider 버전 확인은 실제 에이전트 응답을 대체하지 않아요.</p>
+
+        <div class="document-end">
+          <a href="../references/sources.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Windows 실행 경로 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html" aria-current="page">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="windows-실행파일과-path">Windows 실행파일과 PATH</h1>
+<p>사용할 에이전트 하나를 기준으로 검사해요. PowerShell에서 명령이 보이는 것, 새 PowerShell에서 실행되는 것, Paseo 데몬이 실행하는 것은 서로 다른 검사예요.</p>
+<h2 id="powershell에서-못-찾을-때">PowerShell에서 못 찾을 때</h2>
+<pre><code class="language-powershell">Get-Command claude -All
+Get-Command codex -All
+</code></pre>
+<p>설치한 쪽만 확인하세요. <code>CommandType</code>이 Alias·Function이면 실제 파일 경로가 아니에요. <code>Source</code>나 <code>Path</code>의 파일을 확인해요. 여러 설치가 보이면 버전과 경로를 비교하고 의도한 설치를 선택해요. 오래된 설치를 바로 지우지 않아요.</p>
+<p>네이티브 설치의 기본 후보는 아래예요. 사용자 지정 설치는 완료 메시지에 나온 위치를 먼저 확인해요. 파일이 실제로 있을 때만 사용해요.</p>
+<pre><code class="language-powershell"># Claude 네이티브 기본 후보
+$claudeExe = Join-Path $env:USERPROFILE &#39;.local\bin\claude.exe&#39;
+Test-Path -LiteralPath $claudeExe
+&amp; $claudeExe --version
+
+# Codex 네이티브 기본 후보
+$codexExe = Join-Path $env:LOCALAPPDATA &#39;Programs\OpenAI\Codex\bin\codex.exe&#39;
+Test-Path -LiteralPath $codexExe
+&amp; $codexExe --version
+</code></pre>
+<p>절대경로로 실행할 수 있으면 그 방법으로 에이전트를 먼저 열어 진단을 맡겨요. 경로에 공백이 있으면 <code>&amp; &#39;C:\실제 경로\agent.exe&#39;</code>처럼 호출 연산자와 따옴표를 써요. 폴더명이나 설치 경로를 추측해 시스템 PATH에 추가하지 않아요.</p>
+<p>설치 직후에는 새 PowerShell을 열어요. 현재 프로세스에만 PATH를 추가한 것으로 완료 처리하지 않아요. 실제 파일이 있는 폴더가 사용자 PATH에 빠졌다면 에이전트가 기존 값을 읽고 필요한 폴더 하나만 추가하는 변경을 제안해요. 관리자 PATH나 전체 PATH를 덮지 않아요. 변경 뒤 새 창에서 <code>Get-Command</code>와 <code>--version</code>을 다시 확인해요.</p>
+<p>npm으로 설치한 경우 <code>codex.ps1</code>·<code>claude.ps1</code>·<code>.cmd</code> shim이 보일 수 있어요. <code>.ps1</code> 실행 정책 오류와 PATH 누락은 다른 문제예요. 에이전트에게 정확한 오류를 보내고, 정책을 전역 완화하거나 Node 폴더를 임의로 지우지 않아요. 가능한 경우 공식 네이티브 설치의 실제 <code>.exe</code>로 연결해요.</p>
+<h2 id="paseo에서만-못-찾을-때">Paseo에서만 못 찾을 때</h2>
+<p>Paseo의 Settings → 해당 host → Providers → 제공자 → Diagnostic에서 아래를 봐요.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>볼 것</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Resolved path</td>
+<td>PowerShell에서 확인한 파일과 같은지</td>
+</tr>
+<tr>
+<td>Daemon PATH</td>
+<td>실행파일이 있는 폴더가 포함되는지</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>파일을 실제로 실행할 수 있는지</td>
+</tr>
+</tbody></table>
+<p>CLI가 있다면 해당 호스트를 명시해 같은 진단을 받을 수 있어요. 데스크톱 앱만 설치했다면 GUI 진단을 사용해도 돼요.</p>
+<pre><code class="language-powershell">paseo --host 127.0.0.1:6767 provider diagnostic codex --json
+</code></pre>
+<p>실제 포트·제공자로 바꾸세요. PowerShell에서 되더라도 이미 실행 중인 Windows 앱은 이전 환경을 가지고 있을 수 있어요. 시작 환경이 바뀌었으면 작업 상태를 저장하고 필요한 앱/데몬만 다시 실행한 뒤 실제 답변까지 재확인해요.</p>
+<p>PATH 대신 공식 provider <code>command</code> 설정에 검증한 절대경로를 지정할 수도 있어요. 기존 <code>agents.providers</code> 객체에 해당 제공자의 키만 병합해요. <code>command</code>는 실행파일과 인자 배열이며, 단순 셸 별칭·함수를 넣지 않아요. npm shim은 데몬의 실제 실행 결과로 검증해요. 계정별 env와 플러그인 설정을 지우지 않아요.</p>
+<p>설정 저장 후 reload 결과를 읽고 실제 적용 여부를 확인해요. 새 CLI 실행·Paseo provider diagnostic·Paseo 실제 응답 세 가지가 끝나야 경로 문제를 통과로 적어요.</p>
+<p><a href="diagnose.html">가이드 진단 단계</a> · <a href="https://paseo.sh/docs/troubleshooting">Paseo 공식 문제 해결</a> · <a href="sources.html">공식 자료와 확인일</a></p>
+
+        <div class="document-end">
+          <a href="../references/windows-paths.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

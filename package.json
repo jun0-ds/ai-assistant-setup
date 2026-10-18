@@ -1,0 +1,20 @@
+{
+  "name": "ai-assistant-setup",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node scripts/check-site.mjs",
+    "test": "node --test tests/site.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "marked": "18.1.1",
+    "marked-gfm-heading-id": "4.1.4"
+  }
+}

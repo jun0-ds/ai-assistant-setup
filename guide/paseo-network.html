@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paseo 연결 주소 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html" aria-current="page">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="localhost와-다른-기기의-연결">localhost와 다른 기기의 연결</h1>
+<p>이 컴퓨터에서 쓸 때는 이 컴퓨터의 localhost에, 다른 기기에서는 PC의 Tailnet IP에 접속하는 경로를 함께 유지해요. 폰의 <code>127.0.0.1</code>은 폰 자신이에요.</p>
+<pre><code class="language-text">같은 PC의 Paseo ── 127.0.0.1:실제포트 ── PC의 데몬
+다른 기기의 Paseo ── PC의 Tailnet IP:전달포트 ── Tailscale TCP 전달 ── 같은 데몬
+</code></pre>
+<p>아래 TCP 전달은 Tailscale의 공식 기능을 조합한 설정안이에요. Paseo 공식 문서의 Tailnet IP 단독 bind 예시와는 달라요. 실제 Windows·다른 기기에서 두 경로가 작동하는지는 설치 단계에서 검증해야 해요.</p>
+<h2 id="tailscale로-연결하기">Tailscale로 연결하기</h2>
+<ol>
+<li>PC와 다른 기기에 공식 Tailscale·Paseo 앱을 준비하고 같은 tailnet에 로그인해요. 이미 허용된 기기 공유나 접근 정책이 있다면 그 범위를 사용해요.</li>
+<li>먼저 PC에서 localhost로 실제 에이전트 응답을 받아요. 데몬의 실제 bind·포트를 확인해요. 예시는 <code>127.0.0.1:6767</code>이에요.</li>
+<li>다른 기기에 접근을 열기 전 Paseo의 비밀번호 인증과 tailnet 접근 범위를 확인해요. 비밀번호 설정은 사용자가 직접 하고 문서·채팅·명령 인자에 넣지 않아요. 기존 비밀번호를 초기화하지 않아요. 인증을 추가하면 로컬 앱도 새 인증을 확인해야 해요. <a href="https://paseo.sh/docs/security">Paseo 보안 안내</a></li>
+<li>기존 Serve 설정과 Tailnet IP를 확인해요.</li>
+</ol>
+<pre><code class="language-powershell">tailscale ip -4
+tailscale serve status --json
+</code></pre>
+<ol start="5">
+<li>같은 Tailnet 포트가 이미 사용 중이면 덮지 말고 그 용도를 확인해요. Paseo가 이미 <code>0.0.0.0</code>에 bind했다면 소켓·공개 범위를 확인하고 기존 연결을 보존할 안부터 정해요. localhost 주소를 Tailnet IP 하나로 치환하는 것은 두 경로 유지의 통과 조건을 충족하지 않아요.</li>
+<li>추가할 규칙과 범위를 설명하고 Windows 관리자 터미널에서 실행해요. 아래는 <strong>PC의 로컬 데몬 포트도 6767이고 Tailnet 포트도 비어 있을 때</strong>의 예시예요.</li>
+</ol>
+<pre><code class="language-powershell">tailscale serve --bg --tcp=6767 tcp://127.0.0.1:6767
+tailscale serve status
+</code></pre>
+<p>로컬 포트가 다르면 대상 URL을, Tailnet 포트가 다르면 <code>--tcp</code> 값을 바꿔요. 전체 Serve reset, Funnel, 공인 포트 개방은 이 경로에 필요하지 않아요. <code>--bg</code>는 이 전달을 백그라운드로 유지하는 옵션이에요. 명령 성공이 앱 원격 성공을 뜻하지는 않아요.</p>
+<ol start="7">
+<li>다른 기기에서 Tailscale을 연결하고 Paseo의 Direct connection에 <strong>PC의 Tailnet IP와 전달 포트</strong>를 넣어요. 이 raw TCP 예시에서는 앱의 SSL 옵션을 끄고 Tailnet의 암호화 경로를 사용해요. PC의 앱은 기존 localhost 호스트를 유지해요.</li>
+<li>다른 기기에서 실제 에이전트 답변과 작업 파일 접근을 확인하고 PC localhost에서도 다시 답변을 받아요. 같은 PC에서 Tailnet IP로 열어본 결과만으로 원격 성공을 보고하지 않아요.</li>
+<li>Tailscale이 끊긴 상태에서도 PC의 localhost 접속이 되는지 확인해요. 재부팅·절전·앱 종료 이후의 상태는 실제 시험한 범위만 기록해요.</li>
+</ol>
+<h2 id="되돌리기">되돌리기</h2>
+<p>이번에 새로 추가한 포트 전달만 해제해요. 아래는 예시의 6767을 새로 추가했을 때예요.</p>
+<pre><code class="language-powershell">tailscale serve --bg --tcp=6767 off
+</code></pre>
+<p>기존 설정이 있었으면 기록한 원래 설정을 복원해요. <code>tailscale serve reset</code>은 다른 전달까지 지우므로 사용하지 않아요. 해제 후 PC localhost 응답을 다시 확인해요.</p>
+<h2 id="릴레이를-선택할-때">릴레이를 선택할 때</h2>
+<p>Tailscale을 쓰지 않기로 선택하면 Paseo의 공식 Pair Device·암호화 릴레이 경로를 사용할 수 있어요. 이 경우 Tailnet IP 연결은 검사 대상이 아니며 릴레이 사용으로 기록해요. Tailscale 구성을 요청했는데 실패했다고 몰래 릴레이로 바꿔 통과시키지 않아요. <a href="https://paseo.sh/docs/connectivity">Paseo 연결 안내</a></p>
+<h2 id="원격-사용-중-기억할-것">원격 사용 중 기억할 것</h2>
+<p>PC 전원·네트워크·Paseo 데몬이 유지돼야 해요. 앱이 관리하는 데몬과 별도로 등록한 서비스는 시작/종료 방식이 다르므로 실제 구동 방식을 안내해요. 절전 모드에서는 원격 접속이 끊길 수 있어요. Tailscale 경로는 양쪽 Tailscale 연결도 필요해요. PC에서 선택한 작업 폴더의 파일을 수정하며, 폰에 파일이 자동 복사되는 것은 아니에요.</p>
+<p><a href="mobile.html">선택 모바일 단계</a> · <a href="https://tailscale.com/docs/reference/tailscale-cli/serve">Tailscale TCP 전달 공식 문서</a> · <a href="https://tailscale.com/docs/reference/examples/serve">Windows 예제</a></p>
+
+        <div class="document-end">
+          <a href="../references/paseo-network.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

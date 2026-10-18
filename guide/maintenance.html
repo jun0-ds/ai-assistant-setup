@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>업데이트와 관리 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html" aria-current="page">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="06--다음번-사용과-유지">06 · 다음번 사용과 유지</h1>
+<h2 id="입력">입력</h2>
+<table>
+<thead>
+<tr>
+<th>자료</th>
+<th>범위</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>state/setup-status.md</code></td>
+<td>완료·미확인</td>
+<td>다음 사용과 남은 확인을 설명해요.</td>
+</tr>
+<tr>
+<td>작업공간 AGENTS·CONTEXT</td>
+<td>유지·라우팅</td>
+<td>설치된 실제 계약을 사용해요.</td>
+</tr>
+<tr>
+<td><a href="troubleshooting.html">오류 안내</a></td>
+<td>해당 증상</td>
+<td>실패 지점부터 복구해요.</td>
+</tr>
+</tbody></table>
+<h2 id="진행">진행</h2>
+<ol>
+<li>다음번에는 Paseo를 열고 작업 폴더를 선택하는 방법과, 앱이 안 될 때 최초 CLI를 실행하는 방법을 알려줘요.</li>
+<li>문턱의 <code>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &lt;작업공간&gt;/.munteok/tools/Check-Updates.ps1 -WorkspaceRoot &lt;경로&gt;</code>를 그날 첫 작업 때 실행해 하루 한 번 새 stable release를 확인해요. 오프라인이어도 작업을 막지 않아요. 손맛·Paseo의 별도 업데이트와 구분해요.</li>
+<li>새 버전의 변경과 적용 경로를 설명해요. 개인 데이터·인증·계정·권한은 초기화하지 않아요. 소스를 갱신해 설치기를 재실행한 뒤 사용자 파일 보존을 확인해요.</li>
+<li>도구 업데이트 뒤 오류는 해당 단계부터 진단해요. CLI 바이너리와 Paseo 앱·데몬 환경을 함께 확인해요.</li>
+<li>원격 사용은 PC 전원·절전·데몬 실행·양쪽 네트워크/Tailscale에 영향을 받아요. 자동 시작은 재부팅 후 실제 확인한 범위만 설명해요.</li>
+<li>WSL이 필요하면 <a href="wsl-migration.html">이관 안내</a>를 읽어요. Windows 인증·설정·진행 중 프로세스를 그대로 복사하지 않아요.</li>
+</ol>
+<h2 id="출력">출력</h2>
+<p>다음 시작 위치·CLI 복구·파일 위치·업데이트·원격 유지 조건을 짧게 안내해요. 통과/건너뜀/미확인을 나누고, 미확인에는 대상 기기·담당자·확인 행동을 적어요.</p>
+
+        <div class="document-end">
+          <a href="../stages/06-maintenance/CONTEXT.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>

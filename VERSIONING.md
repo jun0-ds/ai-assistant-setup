@@ -1,30 +1,22 @@
-# Versioning
+# 버전 정책
 
-ai-assistant-setup follows [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
+SemVer `MAJOR.MINOR.PATCH`를 사용해요. VERSION은 현재 소스의 버전이며 공개 릴리스 여부는 Git tag/release로 확인해요.
 
-## What each number means
+| 변경 | 버전 |
+|---|---|
+| 사용자가 따르는 설치 흐름·가이드 계약을 교체 | MAJOR |
+| 호환되는 새 단계·도구·지원 경로 | MINOR |
+| 오류 수정·문구·링크 수정 | PATCH |
 
-| | When to bump | Example |
+`1.0.0`은 VS Code 중심 v0.x 흐름을 Windows 네이티브·에이전트 주도 ICM 가이드로 교체해요. 예전 URL은 새 안내로 연결하고 과거 본문은 tag에 보존해요. 기존 설치를 강제 이관하거나 개인 설정을 초기화하는 버전은 아니에요.
+
+## 이력
+
+| 버전 | 날짜 | 요약 |
 |---|---|---|
-| **MAJOR** | Setup flow structure changes that break existing guides | `1.0.0` → `2.0.0` |
-| **MINOR** | New CLI support, significant guide updates, sonmat integration changes | `0.2.0` → `0.3.0` |
-| **PATCH** | Typos, wording fixes, minor guide corrections | `0.3.0` → `0.3.1` |
+| 1.0.0 | 2026-10-19 | Windows 기본·에이전트 주도 설치·ICM·문턱/Paseo·복구·단일 문서 원천 |
+| 0.5.0 | 2026-04-03 | 사용자 맞춤형 호칭·말투와 기존 설치 단계 정리 |
+| 0.4.0 | 2026-04-02 | 당시 손맛 통합·자동 갱신 안내 |
+| 0.3.0 | 2026-04-01 | 손맛 단일 디렉터리 구성 |
 
-## How to release
-
-1. Commit all changes
-2. Tag and push:
-   ```bash
-   git tag vX.Y.Z
-   git push origin main --tags
-   ```
-
-## Version history
-
-| Version | Date | Summary |
-|---------|------|---------|
-| `0.5.0` | 2026-04-03 | 호칭/말투 사용자 맞춤형 전환, sonmat 스킬명 업데이트 (autoloop/imp/scribe), 단계 순서·번호 수정, API키 보안 경고, Windows 훅 자동 분기 |
-| `0.4.0` | 2026-04-02 | sonmat v0.4.0 대응: prompt-first 아키텍처 반영, inspect 스킬 추가, discipline 자동 참조 (하드코딩 제거), Codex/Gemini auto-update |
-| `0.3.0` | 2026-04-01 | Sonmat unified directory install, embed discipline in instruction files, drop sonmat-codex/gemini refs |
-| `0.2.0` | 2026-03-31 | Codex guide added, sonmat v0.2 integration, multi-CLI comparison table |
-| `0.1.0` | 2026-03-29 | Initial release — Claude + Gemini setup guides |
+릴리스 순서·검증·되돌림은 [공개 안내](docs/release.md)에 있어요. 문턱 v0.2.0 공개를 먼저 확인하고 가이드 v1.0.0을 공개해요.

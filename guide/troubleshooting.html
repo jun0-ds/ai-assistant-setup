@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>문제 해결 · AI 어시스턴트 시작하기</title>
+    <meta
+      name="description"
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+    />
+    <link rel="stylesheet" href="../assets/css/landing.css" />
+    <script src="../assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="header wrap">
+      <a class="brand" href="../index.html"
+        ><span class="brand-mark" aria-hidden="true">↗</span> AI 어시스턴트
+        시작하기</a
+      >
+      <nav aria-label="주 메뉴">
+        <a href="first-agent.html">설치 안내</a
+        ><a href="troubleshooting.html">막혔을 때</a>
+      </nav>
+    </header>
+    <div class="reader-layout wrap">
+      <aside class="reader-nav">
+        <details>
+          <summary>안내 목록</summary>
+          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
+<a href="start.html">첫 요청</a>
+<a href="router.html">상황별 안내</a>
+<a href="diagnose.html">컴퓨터 상태 확인</a>
+<a href="workspace.html">작업공간 준비</a>
+<a href="paseo.html">Paseo 준비</a>
+<a href="mobile.html">휴대폰 연결</a>
+<a href="first-task.html">첫 작업과 정리</a>
+<a href="maintenance.html">업데이트와 관리</a>
+<a href="windows-paths.html">Windows 실행 경로</a>
+<a href="paseo-network.html">Paseo 연결 주소</a>
+<a href="troubleshooting.html" aria-current="page">문제 해결</a>
+<a href="wsl-migration.html">WSL로 옮기기</a>
+<a href="sources.html">공식 자료</a>
+<a href="workspace-files.html">작업 파일과 보관</a></nav>
+        </details>
+      </aside>
+      <main id="main" class="document">
+        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="오류가-나도-에이전트와-계속해요">오류가 나도 에이전트와 계속해요</h1>
+<p>증상에 맞는 문서만 읽고 원인 → 변경 → 같은 검사 재수행 순서로 진행해요. 명령·오류·어느 창에서 실행했는지는 유용해요. 비밀번호·인증코드·키·토큰·설정 파일 전체는 채팅에 붙이지 않아요.</p>
+<table>
+<thead>
+<tr>
+<th>증상</th>
+<th>확인할 것</th>
+<th>돌아갈 단계</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>명령이 인식되지 않음</td>
+<td><a href="windows-paths.html">실제 파일·새 PowerShell·PATH</a></td>
+<td><a href="diagnose.html">01 진단</a></td>
+</tr>
+<tr>
+<td>현재 창만 되고 새 창은 실패</td>
+<td>사용자 PATH의 영구 값과 프로세스 환경 구분</td>
+<td><a href="diagnose.html">01 진단</a></td>
+</tr>
+<tr>
+<td>스크립트 실행 정책 오류</td>
+<td><code>.ps1</code> shim인지, 로컬 파일 차단인지 확인</td>
+<td>아래 PowerShell 오류</td>
+</tr>
+<tr>
+<td>로그인·이용권 오류</td>
+<td>의도한 계정·로그인 상태·공식 이용 가능 여부</td>
+<td><a href="first-agent.html">최초 설치</a></td>
+</tr>
+<tr>
+<td>CLI는 되는데 Paseo에서 제공자 없음</td>
+<td><a href="windows-paths.html#paseo%EC%97%90%EC%84%9C%EB%A7%8C-%EB%AA%BB-%EC%B0%BE%EC%9D%84-%EB%95%8C">Daemon PATH·resolved path·version</a></td>
+<td><a href="paseo.html">03 Paseo</a></td>
+</tr>
+<tr>
+<td>접속 거부</td>
+<td>대상 host·실제 포트·데몬 실행·다른 포트 점유</td>
+<td><a href="paseo.html">03 Paseo</a></td>
+</tr>
+<tr>
+<td>로컬은 되고 폰은 안 됨</td>
+<td><a href="paseo-network.html">Tailnet·전달 규칙·접근 정책·PC 전원</a></td>
+<td><a href="mobile.html">04 모바일</a></td>
+</tr>
+<tr>
+<td>폰은 되고 localhost가 안 됨</td>
+<td>loopback bind를 Tailnet IP로 치환했는지</td>
+<td><a href="mobile.html">04 모바일</a></td>
+</tr>
+<tr>
+<td>연결이 403으로 거부됨</td>
+<td>실제 host/origin·비밀번호 오류를 로그에서 구분하고 해당 값만 공식 설정과 대조</td>
+<td><a href="mobile.html">04 모바일</a></td>
+</tr>
+<tr>
+<td>연결되지만 답변 없음</td>
+<td>제공자 실행·계정·한도·로그·현재 작업 환경</td>
+<td><a href="paseo.html">03 Paseo</a></td>
+</tr>
+<tr>
+<td>설정을 바꿔도 그대로</td>
+<td>실제 사용하는 config·reload 결과·구동 override</td>
+<td><a href="paseo.html">03 Paseo</a></td>
+</tr>
+<tr>
+<td>파일·지침을 못 읽음</td>
+<td>실제 cwd·경로·trust·기존 지침 충돌</td>
+<td><a href="workspace.html">02 작업공간</a></td>
+</tr>
+<tr>
+<td>재부팅·절전 뒤 원격 끊김</td>
+<td>앱/데몬·Tailscale 유지와 PC 절전</td>
+<td><a href="maintenance.html">06 유지</a></td>
+</tr>
+</tbody></table>
+<h2 id="에이전트도-아직-실행이-안-된다면">에이전트도 아직 실행이 안 된다면</h2>
+<p>설치 메시지에 나온 절대경로로 실행할 수 있는지 먼저 확인해요. 실행되면 그 에이전트가 PATH·Paseo 진단을 이어가게 해요. 설치 자체가 실패하면 사용한 명령과 오류 문장을 평소 쓰던 웹 AI에 보내 공식 설치 안내와 대조해요. 무작정 다른 계정·WSL·다른 제공자로 바꾸지 않아요.</p>
+<h2 id="powershell-오류">PowerShell 오류</h2>
+<ul>
+<li><code>irm</code>을 모른다는 오류는 CMD에서 PowerShell 명령을 실행했는지 확인해요. <code>&amp;&amp;</code> 오류는 현재 PowerShell 버전이 해당 구문을 지원하는지 확인해요.</li>
+<li><code>.ps1</code> 실행이 차단되면 실제 실행파일·공식 <code>.cmd</code> 또는 <code>.exe</code>·프로세스 한정 실행 방법을 확인해요. <code>Set-ExecutionPolicy Unrestricted</code> 같은 전역 완화를 기본 해결로 쓰지 않아요.</li>
+<li>내려받은 로컬 파일의 인터넷 차단 표식이 원인이면 출처와 내용을 검토한 뒤 그 파일만 차단 해제해요. 회사가 관리하는 정책을 우회하지 않아요.</li>
+<li>한글·공백 경로는 실제 경로에 따옴표를 쓰고 <code>-LiteralPath</code>를 사용해요. Windows 경로를 WSL 경로로 간주하지 않아요.</li>
+</ul>
+<h2 id="버전과-다운로드">버전과 다운로드</h2>
+<p>네트워크·DNS·프록시·공식 배포 주소와 요청한 tag 존재를 구분해요. 이 버전의 계약은 가이드 <code>v1.0.0</code>과 문턱 <code>v0.2.0</code>이에요. 릴리스 전 검토 환경에서는 로컬 소스를 사용할 수 있지만, 공개 버전의 파일이 없는데 성공한 것으로 안내하지 않아요. 다른 버전을 가져오려면 설치 계약 차이를 확인해요.</p>
+<h2 id="증거를-남기고-재개하기">증거를 남기고 재개하기</h2>
+<p><code>state/setup-status.md</code>에 실패 검사, 관찰 오류, 변경한 것, 재검사 결과, 다음 사용자 행동을 남겨요. 실제 사용자가 조작할 기기·로그인이 필요하면 그 부분만 요청해요. 로그는 해당 오류 구간만 보고 민감정보를 지워요. 설치/설정 전체 삭제·계정 인증 복사·방화벽 전체 해제부터 시작하지 않아요.</p>
+<pre><code class="language-text">이 단계에서 막혔어요. 사용한 명령과 오류는 아래와 같아요.
+현재 로컬 setup-status.md를 읽고 원인을 확인한 뒤, 필요한 수정만 하고 실패한 검사를 다시 해줘요.
+내가 해야 할 일이 있으면 한 번에 하나씩 알려줘요.
+</code></pre>
+<p><a href="router.html">가이드 라우터</a> · <a href="https://paseo.sh/docs/troubleshooting">Paseo 공식 오류 안내</a></p>
+
+        <div class="document-end">
+          <a href="../references/troubleshooting.md">원문 Markdown 보기 ↗</a
+          ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
+        </div>
+      </main>
+    </div>
+    <footer class="footer wrap">
+      <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
+      <a href="https://github.com/jun0-ds/ai-assistant-setup"
+        >GitHub · v1.0.0</a
+      >
+    </footer>
+  </body>
+</html>
