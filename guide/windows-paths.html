@@ -27,25 +27,26 @@
       <aside class="reader-nav">
         <details>
           <summary>안내 목록</summary>
-          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
-<a href="start.html">첫 요청</a>
-<a href="router.html">상황별 안내</a>
-<a href="diagnose.html">컴퓨터 상태 확인</a>
-<a href="workspace.html">작업공간 준비</a>
-<a href="paseo.html">Paseo 준비</a>
-<a href="mobile.html">휴대폰 연결</a>
-<a href="first-task.html">첫 작업과 정리</a>
-<a href="maintenance.html">업데이트와 관리</a>
-<a href="windows-paths.html" aria-current="page">Windows 실행 경로</a>
+          <nav aria-label="문서 목록"><div class="nav-group"><p class="nav-group-title">직접 준비</p><a href="first-agent.html">1. 첫 에이전트 설치</a>
+<a href="start.html">2. 첫 요청</a></div>
+<div class="nav-group"><p class="nav-group-title">에이전트와 진행</p><a href="router.html">상황별 안내</a>
+<a href="diagnose.html">3. 컴퓨터 상태 확인</a>
+<a href="workspace.html">4. 작업공간 준비</a>
+<a href="paseo.html">5. Paseo 준비</a>
+<a href="mobile.html">6. 휴대폰 연결〔선택〕</a>
+<a href="first-task.html">7. 첫 작업과 정리</a>
+<a href="maintenance.html">8. 업데이트와 관리</a></div>
+<div class="nav-group"><p class="nav-group-title">필요할 때</p><a href="windows-paths.html" aria-current="page">Windows 실행 경로</a>
 <a href="paseo-network.html">Paseo 연결 주소</a>
 <a href="troubleshooting.html">문제 해결</a>
 <a href="wsl-migration.html">WSL로 옮기기</a>
 <a href="sources.html">공식 자료</a>
-<a href="workspace-files.html">작업 파일과 보관</a></nav>
+<a href="workspace-files.html">작업 파일과 보관</a></div></nav>
         </details>
       </aside>
       <main id="main" class="document">
-        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="windows-실행파일과-path">Windows 실행파일과 PATH</h1>
+        <a class="back-link" href="../index.html">← 시작 화면</a>
+        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내예요.</p><h1 id="windows-실행파일과-path">Windows 실행파일과 PATH</h1>
 <p>사용할 에이전트 하나를 기준으로 검사해요. PowerShell에서 명령이 보이는 것, 새 PowerShell에서 실행되는 것, Paseo 데몬이 실행하는 것은 서로 다른 검사예요.</p>
 <h2 id="powershell에서-못-찾을-때">PowerShell에서 못 찾을 때</h2>
 <pre><code class="language-powershell">Get-Command claude -All
@@ -96,6 +97,8 @@ Test-Path -LiteralPath $codexExe
 <p>설정 저장 후 reload 결과를 읽고 실제 적용 여부를 확인해요. 새 CLI 실행·Paseo provider diagnostic·Paseo 실제 응답 세 가지가 끝나야 경로 문제를 통과로 적어요.</p>
 <p><a href="diagnose.html">가이드 진단 단계</a> · <a href="https://paseo.sh/docs/troubleshooting">Paseo 공식 문제 해결</a> · <a href="sources.html">공식 자료와 확인일</a></p>
 
+        <nav class="step-navigation" aria-label="단계 안내 이동">
+</nav>
         <div class="document-end">
           <a href="../references/windows-paths.md">원문 Markdown 보기 ↗</a
           ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
@@ -105,7 +108,7 @@ Test-Path -LiteralPath $codexExe
     <footer class="footer wrap">
       <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
       <a href="https://github.com/jun0-ds/ai-assistant-setup"
-        >GitHub · v1.0.0</a
+        >GitHub · v1.0.1</a
       >
     </footer>
   </body>

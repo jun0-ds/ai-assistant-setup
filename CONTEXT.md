@@ -14,14 +14,16 @@ Windows 네이티브에서 시작하는 사용자를 돕는 에이전트가 읽�
 
 ## 진행
 
+사람이 직접 하는 1. 최초 설치와 2. 첫 요청 뒤에 이 라우터를 읽어요. 이후 3~8단계는 상태에 맞춰 선택하고, 이미 끝난 단계와 불필요한 선택 단계는 건너뛰어요. 번호는 위치를 공유하는 기준이며 무조건 모든 단계를 다시 실행하라는 뜻이 아니에요.
+
 | 현재 상태 | 읽을 문서 | 다음으로 넘어갈 증거 |
 |---|---|---|
-| 시작·명령 미인식·환경 변경 | [01 진단](stages/01-diagnose/CONTEXT.md) | 선택한 에이전트의 경로·버전·실제 응답 확인 |
-| 작업공간 준비 전 | [02 작업공간](stages/02-workspace/CONTEXT.md) | 문턱과 업무·개인 라우팅 작동 |
-| Paseo 준비 전·제공자 오류 | [03 Paseo](stages/03-paseo/CONTEXT.md) | localhost에서 실제 에이전트 응답 |
-| 다른 기기도 연결 | [04 모바일](stages/04-mobile/CONTEXT.md) | 다른 기기와 localhost 양쪽 실제 응답 |
-| 연결 준비 완료 | [05 첫 작업](stages/05-first-task/CONTEXT.md) | 파일 생성·정리·보관·재조회 |
-| 설치 완료·재개·업데이트 | [06 유지](stages/06-maintenance/CONTEXT.md) | 필요한 범위 확인·기존 자료 보존 |
+| 시작·명령 미인식·환경 변경 | [3. 진단](stages/01-diagnose/CONTEXT.md) | 선택한 에이전트의 경로·버전·실제 응답 확인 |
+| 작업공간 준비 전 | [4. 작업공간](stages/02-workspace/CONTEXT.md) | 문턱과 업무·개인 라우팅 작동 |
+| Paseo 준비 전·제공자 오류 | [5. Paseo](stages/03-paseo/CONTEXT.md) | localhost에서 실제 에이전트 응답 |
+| 다른 기기도 연결 | [6. 모바일](stages/04-mobile/CONTEXT.md) | 다른 기기와 localhost 양쪽 실제 응답 |
+| 연결 준비 완료 | [7. 첫 작업](stages/05-first-task/CONTEXT.md) | 파일 생성·정리·보관·재조회 |
+| 설치 완료·재개·업데이트 | [8. 유지](stages/06-maintenance/CONTEXT.md) | 필요한 범위 확인·기존 자료 보존 |
 | 오류 발생 | [오류 라우터](references/troubleshooting.md) | 원인 확인 후 실패 검사 재수행 |
 
 1. 사용자가 준 선택은 다시 묻지 않아요. 모바일이 필요 없으면 해당 단계는 건너뜀으로 기록해요.

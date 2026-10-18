@@ -27,25 +27,26 @@
       <aside class="reader-nav">
         <details>
           <summary>안내 목록</summary>
-          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
-<a href="start.html">첫 요청</a>
-<a href="router.html">상황별 안내</a>
-<a href="diagnose.html">컴퓨터 상태 확인</a>
-<a href="workspace.html">작업공간 준비</a>
-<a href="paseo.html">Paseo 준비</a>
-<a href="mobile.html">휴대폰 연결</a>
-<a href="first-task.html">첫 작업과 정리</a>
-<a href="maintenance.html">업데이트와 관리</a>
-<a href="windows-paths.html">Windows 실행 경로</a>
+          <nav aria-label="문서 목록"><div class="nav-group"><p class="nav-group-title">직접 준비</p><a href="first-agent.html">1. 첫 에이전트 설치</a>
+<a href="start.html">2. 첫 요청</a></div>
+<div class="nav-group"><p class="nav-group-title">에이전트와 진행</p><a href="router.html">상황별 안내</a>
+<a href="diagnose.html">3. 컴퓨터 상태 확인</a>
+<a href="workspace.html">4. 작업공간 준비</a>
+<a href="paseo.html">5. Paseo 준비</a>
+<a href="mobile.html">6. 휴대폰 연결〔선택〕</a>
+<a href="first-task.html">7. 첫 작업과 정리</a>
+<a href="maintenance.html">8. 업데이트와 관리</a></div>
+<div class="nav-group"><p class="nav-group-title">필요할 때</p><a href="windows-paths.html">Windows 실행 경로</a>
 <a href="paseo-network.html">Paseo 연결 주소</a>
 <a href="troubleshooting.html">문제 해결</a>
 <a href="wsl-migration.html">WSL로 옮기기</a>
 <a href="sources.html" aria-current="page">공식 자료</a>
-<a href="workspace-files.html">작업 파일과 보관</a></nav>
+<a href="workspace-files.html">작업 파일과 보관</a></div></nav>
         </details>
       </aside>
       <main id="main" class="document">
-        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="공식-자료와-확인-범위">공식 자료와 확인 범위</h1>
+        <a class="back-link" href="../index.html">← 시작 화면</a>
+        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내예요.</p><h1 id="공식-자료와-확인-범위">공식 자료와 확인 범위</h1>
 <p>확인일: 2026-10-19 KST. 설치 명령·설정 계약은 아래 공식 문서를 대조했어요. 계정별 이용 가능 여부·요금·모델은 이 가이드에서 고정하지 않아요. 새 버전이나 오류가 생기면 현재 설치된 버전과 공식 문서를 다시 대조해요.</p>
 <table>
 <thead>
@@ -108,6 +109,8 @@
 </tbody></table>
 <p>Tailscale TCP 전달을 localhost Paseo에 조합한 경로는 원천 기능을 이용한 구성안이에요. Paseo 공식 문서가 이 조합 전체를 직접 보장한다는 뜻은 아니에요. 실제 Windows/휴대폰 왕복과 재부팅 지속성은 설치할 기기에서 검증해요. TCP 연결이나 provider 버전 확인은 실제 에이전트 응답을 대체하지 않아요.</p>
 
+        <nav class="step-navigation" aria-label="단계 안내 이동">
+</nav>
         <div class="document-end">
           <a href="../references/sources.md">원문 Markdown 보기 ↗</a
           ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
@@ -117,7 +120,7 @@
     <footer class="footer wrap">
       <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
       <a href="https://github.com/jun0-ds/ai-assistant-setup"
-        >GitHub · v1.0.0</a
+        >GitHub · v1.0.1</a
       >
     </footer>
   </body>

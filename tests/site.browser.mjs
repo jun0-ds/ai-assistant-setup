@@ -1,5 +1,18 @@
 import { test, expect } from "@playwright/test";
 
+test("numbered guide separates preparation, agent stages and references", async ({ page }) => {
+  await page.goto("guide/start.html");
+  const nav = page.getByRole("navigation", { name: "문서 목록" });
+  await expect(nav.locator(".nav-group-title")).toHaveText(["직접 준비", "에이전트와 진행", "필요할 때"]);
+  await expect(nav.getByRole("link", { name: "2. 첫 요청", exact: true })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("2. 첫 요청");
+  await page.getByRole("link", { name: "다음 안내: 3. 컴퓨터 상태 확인" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("3. 컴퓨터 상태 확인");
+  await expect(page.locator(".document-audience")).toContainText("현재 상태에 맞는 단계부터");
+  await page.getByRole("link", { name: "← 이전 안내: 2. 첫 요청" }).click();
+  await expect(page).toHaveURL(/start.html$/);
+});
+
 test("agent choice opens its installation section under a project subpath", async ({
   page,
 }) => {

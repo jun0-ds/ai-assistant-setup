@@ -27,25 +27,26 @@
       <aside class="reader-nav">
         <details>
           <summary>안내 목록</summary>
-          <nav aria-label="문서 목록"><a href="first-agent.html">첫 에이전트 설치</a>
-<a href="start.html">첫 요청</a>
-<a href="router.html">상황별 안내</a>
-<a href="diagnose.html">컴퓨터 상태 확인</a>
-<a href="workspace.html">작업공간 준비</a>
-<a href="paseo.html">Paseo 준비</a>
-<a href="mobile.html">휴대폰 연결</a>
-<a href="first-task.html">첫 작업과 정리</a>
-<a href="maintenance.html">업데이트와 관리</a>
-<a href="windows-paths.html">Windows 실행 경로</a>
+          <nav aria-label="문서 목록"><div class="nav-group"><p class="nav-group-title">직접 준비</p><a href="first-agent.html">1. 첫 에이전트 설치</a>
+<a href="start.html">2. 첫 요청</a></div>
+<div class="nav-group"><p class="nav-group-title">에이전트와 진행</p><a href="router.html">상황별 안내</a>
+<a href="diagnose.html">3. 컴퓨터 상태 확인</a>
+<a href="workspace.html">4. 작업공간 준비</a>
+<a href="paseo.html">5. Paseo 준비</a>
+<a href="mobile.html">6. 휴대폰 연결〔선택〕</a>
+<a href="first-task.html">7. 첫 작업과 정리</a>
+<a href="maintenance.html">8. 업데이트와 관리</a></div>
+<div class="nav-group"><p class="nav-group-title">필요할 때</p><a href="windows-paths.html">Windows 실행 경로</a>
 <a href="paseo-network.html">Paseo 연결 주소</a>
 <a href="troubleshooting.html">문제 해결</a>
 <a href="wsl-migration.html">WSL로 옮기기</a>
 <a href="sources.html">공식 자료</a>
-<a href="workspace-files.html" aria-current="page">작업 파일과 보관</a></nav>
+<a href="workspace-files.html" aria-current="page">작업 파일과 보관</a></div></nav>
         </details>
       </aside>
       <main id="main" class="document">
-        <a class="back-link" href="../index.html">← 시작 화면</a><h1 id="작업공간과-파일-관리">작업공간과 파일 관리</h1>
+        <a class="back-link" href="../index.html">← 시작 화면</a>
+        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내예요.</p><h1 id="작업공간과-파일-관리">작업공간과 파일 관리</h1>
 <p>작업공간은 에이전트와 함께 일할 폴더예요. Windows의 실제 문서 폴더 아래 <code>AgentWorkspace</code>를 기본 위치로 제안해요. 기존 작업 위치가 있으면 사용자와 정한 경로를 써요. 문턱 소스는 준비 폴더의 <code>source/</code>, 개인 데이터는 작업공간의 <code>.munteok/</code>에 있어요. 공개 소스와 사용자 자료를 함께 Git에 올리지 않아요.</p>
 <pre><code class="language-text">AgentWorkspace/
 ├── AGENTS.md                 # 공통 진입 지침
@@ -82,6 +83,8 @@
 <p>완료되지 않은 일을 정리했다는 이유로 완료 처리하지 않아요. 로컬 상태와 결과 경로를 남겨 다음 대화에서 이어가요.</p>
 <p><a href="workspace.html">작업공간 준비</a> · <a href="first-task.html">첫 작업</a></p>
 
+        <nav class="step-navigation" aria-label="단계 안내 이동">
+</nav>
         <div class="document-end">
           <a href="../references/workspace.md">원문 Markdown 보기 ↗</a
           ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
@@ -91,7 +94,7 @@
     <footer class="footer wrap">
       <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
       <a href="https://github.com/jun0-ds/ai-assistant-setup"
-        >GitHub · v1.0.0</a
+        >GitHub · v1.0.1</a
       >
     </footer>
   </body>

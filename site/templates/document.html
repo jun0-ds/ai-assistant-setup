@@ -31,7 +31,9 @@
         </details>
       </aside>
       <main id="main" class="document">
-        <a class="back-link" href="../index.html">← 시작 화면</a>{{content}}
+        <a class="back-link" href="../index.html">← 시작 화면</a>
+        <p class="document-audience">{{audience}}</p>{{content}}
+        <nav class="step-navigation" aria-label="단계 안내 이동">{{stepNavigation}}</nav>
         <div class="document-end">
           <a href="../{{source}}">원문 Markdown 보기 ↗</a
           ><a href="../index.html#handoff">첫 요청으로 돌아가기 →</a>
@@ -41,7 +43,7 @@
     <footer class="footer wrap">
       <p>설치부터 첫 작업까지, 에이전트와 함께.</p>
       <a href="https://github.com/jun0-ds/ai-assistant-setup"
-        >GitHub · v1.0.0</a
+        >GitHub · v{{version}}</a
       >
     </footer>
   </body>

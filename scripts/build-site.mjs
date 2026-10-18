@@ -9,34 +9,40 @@ export const documents = [
     source: "guides/first-agent.md",
     slug: "first-agent",
     label: "첫 에이전트 설치",
+    step: 1,
   },
-  { source: "prompts/start.md", slug: "start", label: "첫 요청" },
+  { source: "prompts/start.md", slug: "start", label: "첫 요청", step: 2 },
   { source: "CONTEXT.md", slug: "router", label: "상황별 안내" },
   {
     source: "stages/01-diagnose/CONTEXT.md",
     slug: "diagnose",
     label: "컴퓨터 상태 확인",
+    step: 3,
   },
   {
     source: "stages/02-workspace/CONTEXT.md",
     slug: "workspace",
     label: "작업공간 준비",
+    step: 4,
   },
-  { source: "stages/03-paseo/CONTEXT.md", slug: "paseo", label: "Paseo 준비" },
+  { source: "stages/03-paseo/CONTEXT.md", slug: "paseo", label: "Paseo 준비", step: 5 },
   {
     source: "stages/04-mobile/CONTEXT.md",
     slug: "mobile",
-    label: "휴대폰 연결",
+    label: "휴대폰 연결〔선택〕",
+    step: 6,
   },
   {
     source: "stages/05-first-task/CONTEXT.md",
     slug: "first-task",
     label: "첫 작업과 정리",
+    step: 7,
   },
   {
     source: "stages/06-maintenance/CONTEXT.md",
     slug: "maintenance",
     label: "업데이트와 관리",
+    step: 8,
   },
   {
     source: "references/windows-paths.md",
@@ -74,6 +80,8 @@ const escapeHtml = (value) =>
     .replaceAll('"', "&quot;");
 const apply = (template, values) =>
   template.replace(/\{\{(\w+)\}\}/g, (_, key) => values[key] ?? "");
+const documentTitle = (doc) => doc.step ? `${doc.step}. ${doc.label}` : doc.label;
+const documentGroup = (doc) => doc.step <= 2 ? "직접 준비" : doc.step || doc.slug === "router" ? "에이전트와 진행" : "필요할 때";
 
 function rendererFor(source) {
   const parser = new Marked({ gfm: true });
@@ -98,6 +106,7 @@ function rendererFor(source) {
 }
 
 export async function buildSite(root = projectRoot) {
+  const version = (await readFile(path.join(root, "VERSION"), "utf8")).trim();
   const homeTemplate = await readFile(
     path.join(projectRoot, "site/templates/home.html"),
     "utf8",
@@ -125,6 +134,7 @@ export async function buildSite(root = projectRoot) {
     apply(homeTemplate, {
       intro: new Marked().parse(intro).replace("<h1>", '<h1 id="intro-title">'),
       prompt: escapeHtml(prompt),
+      version,
     }),
   );
   for (const doc of documents) {
@@ -140,16 +150,24 @@ export async function buildSite(root = projectRoot) {
       (heading, depth, id) =>
         authoredAnchors.has(id) ? `<h${depth}>` : heading,
     );
-    const navigation = documents
-      .map(
-        (item) =>
-          `<a href="${item.slug}.html"${item.slug === doc.slug ? ' aria-current="page"' : ""}>${escapeHtml(item.label)}</a>`,
-      )
-      .join("\n");
+    const navigation = ["직접 준비", "에이전트와 진행", "필요할 때"].map((group) =>
+      `<div class="nav-group"><p class="nav-group-title">${group}</p>${documents
+        .filter((item) => documentGroup(item) === group)
+        .map((item) => `<a href="${item.slug}.html"${item.slug === doc.slug ? ' aria-current="page"' : ""}>${escapeHtml(documentTitle(item))}</a>`)
+        .join("\n")}</div>`).join("\n");
+    const adjacent = [doc.step && documents.find((item) => item.step === doc.step - 1), doc.step && documents.find((item) => item.step === doc.step + 1)];
+    const stepNavigation = adjacent.map((item, index) => item
+      ? `<a href="${item.slug}.html">${index === 0 ? "← 이전 안내:" : "다음 안내:"} ${escapeHtml(documentTitle(item))}${index === 1 ? " →" : ""}</a>` : "").join("\n");
+    const audience = doc.step <= 2 ? "직접 준비해요" : documentGroup(doc) === "에이전트와 진행"
+      ? "첫 요청을 받은 에이전트가 읽어요. 현재 상태에 맞는 단계부터 진행하고, 필요한 로그인·기기 조작을 함께해요."
+      : "진행 중 필요할 때 찾아보는 참고 안내예요.";
     await writeFile(
       path.join(root, `guide/${doc.slug}.html`),
       apply(documentTemplate, {
-        title: escapeHtml(doc.label),
+        title: escapeHtml(documentTitle(doc)),
+        audience,
+        stepNavigation,
+        version,
         source: doc.source,
         navigation,
         content,

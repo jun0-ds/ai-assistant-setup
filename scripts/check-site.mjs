@@ -20,6 +20,9 @@ for (const page of pages) {
   }
 }
 for (const [page, html] of contents) {
+  const doc = documents.find((item) => page === `guide/${item.slug}.html`);
+  if (doc?.step && !html.includes(`>${doc.step}. ${doc.label}</h1>`))
+    errors.push(`${page}: heading and guide step number disagree`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   if (new Set(ids).size !== ids.length)
     errors.push(`${page}: duplicate element id`);
