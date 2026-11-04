@@ -58,6 +58,18 @@
 <p><strong>설치 명령 실행하기</strong></p>
 <pre><code class="language-powershell">irm https://claude.ai/install.ps1 | iex
 </code></pre>
+<p>다운로드 표시 없이 한동안 멈춘 듯 보일 수 있어요. 끝나면 마지막 <code>Installation complete!</code>만 보지 말고 그 위의 <code>Setup notes:</code>도 읽어요.</p>
+<p><strong><code>Setup notes</code>에 <code>… is not in your PATH</code>가 보이면</strong></p>
+<p>설치는 된 거예요. 이 설치기는 실행 위치(<code>C:\Users\사용자\.local\bin</code>)를 PATH에 직접 넣지 않아요. 그대로 새 창을 열면 <code>claude</code>를 찾지 못해요. 같은 창에서 아래 두 줄을 실행해 사용자 PATH에 이 폴더 하나만 추가해요.</p>
+<pre><code class="language-powershell">$currentPath = [Environment]::GetEnvironmentVariable(&#39;PATH&#39;, &#39;User&#39;)
+[Environment]::SetEnvironmentVariable(&#39;PATH&#39;, &quot;$currentPath;$env:USERPROFILE\.local\bin&quot;, &#39;User&#39;)
+</code></pre>
+<p>이 안내가 없었다면 두 줄은 건너뛰어요. 공식 <a href="https://code.claude.com/docs/en/troubleshoot-install#verify-your-path">PATH 해결 안내</a>와 같은 명령이에요.</p>
+<p><strong>설치 명령이 빨간 오류로 끝나면</strong></p>
+<p>같은 명령을 반복하지 말고 공식 대안인 WinGet으로 설치해요. 오류 문장은 나중에 에이전트에게 보여 줄 수 있게 남겨 둬요.</p>
+<pre><code class="language-powershell">winget install Anthropic.ClaudeCode
+</code></pre>
+<p>WinGet 설치는 자동 업데이트되지 않아요. 가끔 <code>winget upgrade Anthropic.ClaudeCode</code>를 실행해요.</p>
 <p><strong>PowerShell을 닫고 새로 열어 설치 확인하기</strong></p>
 <pre><code class="language-powershell">Get-Command claude -All
 claude --version
@@ -65,13 +77,20 @@ claude --version
 <p><strong>실행하고 로그인하기</strong></p>
 <pre><code class="language-powershell">claude
 </code></pre>
-<p>화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. 설치 중 다운로드 표시가 잠시 없을 수 있어요. <a href="https://code.claude.com/docs/en/setup">공식 설치 안내</a></p>
+<p>화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. <a href="https://code.claude.com/docs/en/setup">공식 설치 안내</a></p>
 <p><a id="codex"></a></p>
 <h3>Codex</h3>
 <p><strong>설치 명령 실행하기</strong></p>
 <pre><code class="language-powershell">powershell -ExecutionPolicy ByPass -c &quot;irm https://chatgpt.com/codex/install.ps1 | iex&quot;
 </code></pre>
-<p>공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요.</p>
+<p>공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요. 이 설치기는 PATH를 직접 등록해요. 끝에 <code>PATH updated for future PowerShell sessions.</code>나 <code>already on PATH</code>가 보이면 정상이에요.</p>
+<p>설치 중에 <code>[y/N]</code> 질문이 나올 수 있어요.</p>
+<ul>
+<li><code>Start Codex now? [y/N]</code>: Enter를 눌러 넘어가요. 아래처럼 새 창에서 확인한 뒤 실행해요.</li>
+<li><code>Uninstall the existing npm-managed Codex now? [y/N]</code>: 예전에 npm으로 설치한 Codex가 있다는 뜻이에요. 지금은 Enter를 눌러 그대로 두고, 3단계 진단에서 에이전트와 어느 쪽을 쓸지 정해요.</li>
+<li><code>Replace it with the current Codex setup now? [y/N]</code>: 예전 방식 설치가 있다는 뜻이에요. <code>y</code>를 입력하면 예전 폴더를 <code>.backup</code>이 붙은 이름으로 옮겨 보존하고 설치를 이어가요. Enter면 설치가 멈춰요.</li>
+<li>그 밖의 질문은 Enter로 넘기고 질문 문장을 남겨 둬요.</li>
+</ul>
 <p><strong>PowerShell을 닫고 새로 열어 설치 확인하기</strong></p>
 <pre><code class="language-powershell">Get-Command codex -All
 codex --version

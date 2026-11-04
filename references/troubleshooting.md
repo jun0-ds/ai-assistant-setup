@@ -4,6 +4,7 @@
 
 | 증상 | 확인할 것 | 돌아갈 단계 |
 |---|---|---|
+| Claude 설치 끝에 `Native installation exists but … is not in your PATH` | 설치는 됨. 사용자 PATH에 `.local\bin` 추가 | [1. 최초 설치](../guides/first-agent.md#claude) |
 | 명령이 인식되지 않음 | [실제 파일·새 PowerShell·PATH](windows-paths.md) | [3. 진단](../stages/01-diagnose/CONTEXT.md) |
 | 현재 창만 되고 새 창은 실패 | 사용자 PATH의 영구 값과 프로세스 환경 구분 | [3. 진단](../stages/01-diagnose/CONTEXT.md) |
 | 스크립트 실행 정책 오류 | `.ps1` shim인지, 로컬 파일 차단인지 확인 | 아래 PowerShell 오류 |

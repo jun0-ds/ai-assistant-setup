@@ -21,6 +21,29 @@ Claude Code와 Codex 중 **고른 쪽의 설치·확인·로그인만** 따라�
 irm https://claude.ai/install.ps1 | iex
 ```
 
+다운로드 표시 없이 한동안 멈춘 듯 보일 수 있어요. 끝나면 마지막 `Installation complete!`만 보지 말고 그 위의 `Setup notes:`도 읽어요.
+
+**`Setup notes`에 `… is not in your PATH`가 보이면**
+
+설치는 된 거예요. 이 설치기는 실행 위치(`C:\Users\사용자\.local\bin`)를 PATH에 직접 넣지 않아요. 그대로 새 창을 열면 `claude`를 찾지 못해요. 같은 창에서 아래 두 줄을 실행해 사용자 PATH에 이 폴더 하나만 추가해요.
+
+```powershell
+$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\.local\bin", 'User')
+```
+
+이 안내가 없었다면 두 줄은 건너뛰어요. 공식 [PATH 해결 안내](https://code.claude.com/docs/en/troubleshoot-install#verify-your-path)와 같은 명령이에요.
+
+**설치 명령이 빨간 오류로 끝나면**
+
+같은 명령을 반복하지 말고 공식 대안인 WinGet으로 설치해요. 오류 문장은 나중에 에이전트에게 보여 줄 수 있게 남겨 둬요.
+
+```powershell
+winget install Anthropic.ClaudeCode
+```
+
+WinGet 설치는 자동 업데이트되지 않아요. 가끔 `winget upgrade Anthropic.ClaudeCode`를 실행해요.
+
 **PowerShell을 닫고 새로 열어 설치 확인하기**
 
 ```powershell
@@ -34,7 +57,7 @@ claude --version
 claude
 ```
 
-화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. 설치 중 다운로드 표시가 잠시 없을 수 있어요. [공식 설치 안내](https://code.claude.com/docs/en/setup)
+화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. [공식 설치 안내](https://code.claude.com/docs/en/setup)
 
 <a id="codex"></a>
 ### Codex
@@ -45,7 +68,14 @@ claude
 powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 ```
 
-공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요.
+공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요. 이 설치기는 PATH를 직접 등록해요. 끝에 `PATH updated for future PowerShell sessions.`나 `already on PATH`가 보이면 정상이에요.
+
+설치 중에 `[y/N]` 질문이 나올 수 있어요.
+
+- `Start Codex now? [y/N]`: Enter를 눌러 넘어가요. 아래처럼 새 창에서 확인한 뒤 실행해요.
+- `Uninstall the existing npm-managed Codex now? [y/N]`: 예전에 npm으로 설치한 Codex가 있다는 뜻이에요. 지금은 Enter를 눌러 그대로 두고, 3단계 진단에서 에이전트와 어느 쪽을 쓸지 정해요.
+- `Replace it with the current Codex setup now? [y/N]`: 예전 방식 설치가 있다는 뜻이에요. `y`를 입력하면 예전 폴더를 `.backup`이 붙은 이름으로 옮겨 보존하고 설치를 이어가요. Enter면 설치가 멈춰요.
+- 그 밖의 질문은 Enter로 넘기고 질문 문장을 남겨 둬요.
 
 **PowerShell을 닫고 새로 열어 설치 확인하기**
 
