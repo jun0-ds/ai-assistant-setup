@@ -5,7 +5,7 @@
 ```text
 내 Windows 컴퓨터에서 에이전트를 쓰기 위한 세팅을 함께 진행해줘요.
 
-https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.0.1/CONTEXT.md 를 읽고, 라우터가 지정한 현재 단계 문서만 추가로 읽어 진행해줘요. 파일 접근이 필요하면 같은 저장소의 v1.0.1 공개 ZIP을 받아 소스로 사용해요.
+https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.0.2/CONTEXT.md 를 읽고, 라우터가 지정한 현재 단계 문서만 추가로 읽어 진행해줘요. 파일 접근이 필요하면 같은 저장소의 v1.0.2 공개 ZIP을 받아 소스로 사용해요.
 
 나는 에이전트 하나를 설치하고 로그인해서 지금 대화하고 있어요. 먼저 실제 실행파일 위치와 새 PowerShell에서의 인식을 확인해줘요. 설치된 다른 에이전트나 Paseo가 있으면 다시 설치하기 전에 상태를 확인해요.
 
@@ -14,6 +14,6 @@ https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.0.1/CONTEXT.md �
 직접 할 수 있는 진단과 설정은 맡아서 진행하고, 로그인·기기 조작처럼 내가 할 일은 한 번에 하나씩 알려줘요. 오류가 나면 원인을 확인하고 해결한 뒤 같은 검사를 다시 해요. 기존 계정·권한·개인 설정·자료를 초기화하지 말고, 확인 결과와 남은 일을 로컬에 기록해 다음 대화에서 이어갈 수 있게 해줘요.
 ```
 
-링크를 읽지 못하면 [v1.0.1 ZIP](https://github.com/jun0-ds/ai-assistant-setup/archive/refs/tags/v1.0.1.zip)을 받아 압축을 풀고 `CONTEXT.md`를 읽어 달라고 해요. 인증이 필요 없는 공개 자료예요.
+링크를 읽지 못하면 [v1.0.2 ZIP](https://github.com/jun0-ds/ai-assistant-setup/archive/refs/tags/v1.0.2.zip)을 받아 압축을 풀고 `CONTEXT.md`를 읽어 달라고 해요. 인증이 필요 없는 공개 자료예요.
 
 중간에 멈췄다면 준비 폴더와 `state/setup-status.md` 위치를 알려주고 “이 상태를 확인한 뒤 남은 단계부터 이어가줘요”라고 요청해요.
