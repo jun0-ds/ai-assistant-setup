@@ -4,20 +4,20 @@
 
 | 증상 | 확인할 것 | 돌아갈 단계 |
 |---|---|---|
-| Claude 설치 끝에 `Native installation exists but … is not in your PATH` | 설치는 됨. 사용자 PATH에 `.local\bin` 추가 | [1. 최초 설치](../guides/first-agent.md#claude) |
-| 명령이 인식되지 않음 | [실제 파일·새 PowerShell·PATH](windows-paths.md) | [3. 진단](../stages/01-diagnose/CONTEXT.md) |
+| Claude 설치 끝에 `Native installation exists but … is not in your PATH` | 설치는 됨. 사용자 PATH에 `.local\bin` 추가 | [1. 최초 설치](../guides/first-agent.md#실행-명령을-못-찾으면) |
+| `claude`·`codex` 명령이 인식되지 않음 | [터미널 완전 재시작·사용자 PATH 추가](../guides/first-agent.md#실행-명령을-못-찾으면), [실제 파일·PATH 진단](windows-paths.md) | [3. 진단](../stages/01-diagnose/CONTEXT.md) |
 | 현재 창만 되고 새 창은 실패 | 사용자 PATH의 영구 값과 프로세스 환경 구분 | [3. 진단](../stages/01-diagnose/CONTEXT.md) |
 | 스크립트 실행 정책 오류 | `.ps1` shim인지, 로컬 파일 차단인지 확인 | 아래 PowerShell 오류 |
 | 로그인·이용권 오류 | 의도한 계정·로그인 상태·공식 이용 가능 여부 | [최초 설치](../guides/first-agent.md) |
 | CLI는 되는데 Paseo에서 제공자 없음 | [Daemon PATH·resolved path·version](windows-paths.md#paseo에서만-못-찾을-때) | [5. Paseo](../stages/03-paseo/CONTEXT.md) |
 | 접속 거부 | 대상 host·실제 포트·데몬 실행·다른 포트 점유 | [5. Paseo](../stages/03-paseo/CONTEXT.md) |
-| 로컬은 되고 폰은 안 됨 | [Tailnet·전달 규칙·접근 정책·PC 전원](paseo-network.md) | [6. 모바일](../stages/04-mobile/CONTEXT.md) |
-| 폰은 되고 localhost가 안 됨 | loopback bind를 Tailnet IP로 치환했는지 | [6. 모바일](../stages/04-mobile/CONTEXT.md) |
+| 로컬은 되고 폰은 안 됨 | [QR 연결·릴레이 켜짐·PC 전원과 인터넷](paseo-network.md#qr로-연결하기), Tailscale이면 전달 규칙·접근 정책 | [6. 모바일](../stages/04-mobile/CONTEXT.md) |
+| 폰은 되고 localhost가 안 됨 | Tailscale을 쓸 때 loopback bind를 Tailnet IP로 치환했는지 | [6. 모바일](../stages/04-mobile/CONTEXT.md) |
 | 연결이 403으로 거부됨 | 실제 host/origin·비밀번호 오류를 로그에서 구분하고 해당 값만 공식 설정과 대조 | [6. 모바일](../stages/04-mobile/CONTEXT.md) |
 | 연결되지만 답변 없음 | 제공자 실행·계정·한도·로그·현재 작업 환경 | [5. Paseo](../stages/03-paseo/CONTEXT.md) |
 | 설정을 바꿔도 그대로 | 실제 사용하는 config·reload 결과·구동 override | [5. Paseo](../stages/03-paseo/CONTEXT.md) |
 | 파일·지침을 못 읽음 | 실제 cwd·경로·trust·기존 지침 충돌 | [4. 작업공간](../stages/02-workspace/CONTEXT.md) |
-| 재부팅·절전 뒤 원격 끊김 | 앱/데몬·Tailscale 유지와 PC 절전 | [8. 유지](../stages/06-maintenance/CONTEXT.md) |
+| 재부팅·절전 뒤 원격 끊김 | 앱/데몬·인터넷·PC 절전, Tailscale을 쓰면 그 연결도 | [8. 유지](../stages/06-maintenance/CONTEXT.md) |
 
 ## 에이전트도 아직 실행이 안 된다면
 

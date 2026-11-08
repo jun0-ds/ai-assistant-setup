@@ -14,7 +14,7 @@
 2. 문턱의 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File <작업공간>/.munteok/tools/Check-Updates.ps1 -WorkspaceRoot <경로>`를 그날 첫 작업 때 실행해 하루 한 번 새 stable release를 확인해요. 오프라인이어도 작업을 막지 않아요. 손맛·Paseo의 별도 업데이트와 구분해요.
 3. 새 버전의 변경과 적용 경로를 설명해요. 개인 데이터·인증·계정·권한은 초기화하지 않아요. 소스를 갱신해 설치기를 재실행한 뒤 사용자 파일 보존을 확인해요.
 4. 도구 업데이트 뒤 오류는 해당 단계부터 진단해요. CLI 바이너리와 Paseo 앱·데몬 환경을 함께 확인해요.
-5. 원격 사용은 PC 전원·절전·데몬 실행·양쪽 네트워크/Tailscale에 영향을 받아요. 자동 시작은 재부팅 후 실제 확인한 범위만 설명해요.
+5. 원격 사용은 PC 전원·절전·데몬 실행·양쪽 인터넷에 영향을 받아요. Tailscale을 쓰면 그 연결도 필요해요. 자동 시작은 재부팅 후 실제 확인한 범위만 설명해요.
 6. WSL이 필요하면 [이관 안내](../../references/wsl-migration.md)를 읽어요. Windows 인증·설정·진행 중 프로세스를 그대로 복사하지 않아요.
 
 ## 출력

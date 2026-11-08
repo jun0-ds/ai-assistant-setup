@@ -70,16 +70,15 @@
 <h2 id="진행">진행</h2>
 <ol>
 <li>이미 모바일 선택을 알면 그대로 진행해요. 필요 없으면 건너뛰어요. 원하는 기기에 공식 Paseo 앱을 설치해요.</li>
-<li>Tailscale 경로는 PC·다른 기기를 같은 tailnet에 로그인해요. 공유/정책이 필요한 환경은 기존 허용 범위를 확인하고 임의로 넓히지 않아요.</li>
-<li>실제 로컬 포트·기존 Serve 설정·접근 정책을 읽어요. <a href="paseo-network.html#tailscale%EB%A1%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0">TCP 전달 절차</a>로 localhost를 유지해요.</li>
-<li>관리자 조작·네트워크 설정 변경 전 대상·포트·접근 범위·기존 설정 영향을 설명해요. 이미 승인된 범위는 반복 승인으로 막지 않아요. 전체 Serve reset이나 config 초기화는 하지 않아요.</li>
-<li>다른 기기의 Direct connection에는 PC의 Tailnet IP와 전달 포트를, PC 자신의 앱에는 기존 localhost 호스트를 사용해요. 폰의 localhost는 PC가 아니에요.</li>
-<li>실제 다른 기기에서 에이전트 응답과 작업 파일 접근을 확인해요. 같은 PC에서 Tailnet IP를 열어본 결과는 원격 실사용 증거가 아니에요.</li>
-<li>PC localhost에서도 다시 실제 응답을 받아요. Tailscale이 끊겨도 로컬 경로가 유지되는지 확인해요.</li>
-<li>전원·절전·데몬·Tailscale의 유지 조건을 안내해요. 재부팅 후 확인한 범위와 아직 사용자 확인이 필요한 것을 구분해요.</li>
+<li>기본은 <a href="paseo-network.html#qr%EB%A1%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0">QR 연결</a>이에요. Tailscale 설치·포트 개방·네트워크 설정이 필요 없어요. 사용자가 원하거나 이미 쓰고 있을 때만 <a href="paseo-network.html#tailscale%EB%A1%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0">Tailscale 연결</a>을 써요.</li>
+<li>릴레이를 켜기 전에 하는 일을 설명해요. QR을 스캔한 기기가 이 PC의 에이전트를 쓸 수 있게 되므로 QR은 비밀번호처럼 다뤄요. 사용자가 PC 앱에서 QR을 띄우고 폰으로 스캔해요. QR 사진이나 페어링 링크를 채팅에 받지 않아요.</li>
+<li>실제 다른 기기에서 에이전트 응답과 작업 파일 접근을 확인해요. 같은 PC에서 열어본 결과는 원격 실사용 증거가 아니에요.</li>
+<li>PC localhost에서도 다시 실제 응답을 받아요.</li>
+<li>전원·절전·데몬·인터넷의 유지 조건을 안내해요. 재부팅 후 확인한 범위와 아직 사용자 확인이 필요한 것을 구분해요.</li>
 </ol>
+<p>Tailscale을 고르면 참고 문서의 절차로 localhost를 유지해요. 관리자 조작·네트워크 설정 변경 전 대상·포트·접근 범위·기존 설정 영향을 설명하고, 전체 Serve reset이나 config 초기화는 하지 않아요. 다른 기기에는 PC의 Tailnet IP와 전달 포트를, PC 자신의 앱에는 기존 localhost 호스트를 사용해요. 폰의 localhost는 PC가 아니에요.</p>
 <h2 id="출력">출력</h2>
-<p>로컬/원격 주소·포트, 기존 Serve 보존·추가 규칙·되돌림, 실제 원격 응답과 localhost 재검사를 기록해요.</p>
+<p>연결 방식(QR·릴레이 또는 Tailscale), 실제 원격 응답과 localhost 재검사를 기록해요. QR과 페어링 링크는 기록하지 않아요. Tailscale을 썼다면 주소·포트, 기존 Serve 보존·추가 규칙·되돌림도 적어요.</p>
 <p>다른 기기에 접근할 수 없으면 담당 기기와 확인 행동을 적고 원격은 미확인으로 남겨요. <a href="first-task.html">7. 첫 작업</a>으로 이어가요.</p>
 
         <nav class="step-navigation" aria-label="단계 안내 이동"><a href="paseo.html">← 이전 안내: 5. Paseo 준비</a>
