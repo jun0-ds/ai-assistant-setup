@@ -6,7 +6,7 @@
     <title>문제 해결 · AI 어시스턴트 시작하기</title>
     <meta
       name="description"
-      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내입니다."
     />
     <link rel="stylesheet" href="../assets/css/landing.css" />
     <script src="../assets/js/site.js" defer></script>
@@ -41,13 +41,14 @@
 <a href="troubleshooting.html" aria-current="page">문제 해결</a>
 <a href="wsl-migration.html">WSL로 옮기기</a>
 <a href="sources.html">공식 자료</a>
+<a href="claude-codex.html">Claude·Codex 함께 쓰기</a>
 <a href="workspace-files.html">작업 파일과 보관</a></div></nav>
         </details>
       </aside>
       <main id="main" class="document">
         <a class="back-link" href="../index.html">← 시작 화면</a>
-        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내예요.</p><h1 id="오류가-나도-에이전트와-계속해요">오류가 나도 에이전트와 계속해요</h1>
-<p>증상에 맞는 문서만 읽고 원인 → 변경 → 같은 검사 재수행 순서로 진행해요. 명령·오류·어느 창에서 실행했는지는 유용해요. 비밀번호·인증코드·키·토큰·설정 파일 전체는 채팅에 붙이지 않아요.</p>
+        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내입니다.</p><h1 id="오류-대응">오류 대응</h1>
+<p>증상에 맞는 문서만 읽고 원인 확인 → 변경 → 같은 검사 재수행 순서로 진행합니다. 실행한 명령, 오류 문장, 어느 창에서 실행했는지는 도움이 됩니다. 비밀번호·인증 코드·키·토큰·설정 파일 전체는 채팅에 붙여 넣지 않습니다.</p>
 <table>
 <thead>
 <tr>
@@ -57,92 +58,97 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Claude 설치 끝에 <code>Native installation exists but … is not in your PATH</code></td>
-<td>설치는 됨. 사용자 PATH에 <code>.local\bin</code> 추가</td>
-<td><a href="first-agent.html#%EC%8B%A4%ED%96%89-%EB%AA%85%EB%A0%B9%EC%9D%84-%EB%AA%BB-%EC%B0%BE%EC%9C%BC%EB%A9%B4">1. 최초 설치</a></td>
+<td>Claude 설치 끝에 <code>… is not in your PATH</code> 표시</td>
+<td>설치는 정상. PATH 등록 명령 실행</td>
+<td><a href="first-agent.html#claude">1. 최초 설치</a></td>
 </tr>
 <tr>
-<td><code>claude</code>·<code>codex</code> 명령이 인식되지 않음</td>
-<td><a href="first-agent.html#%EC%8B%A4%ED%96%89-%EB%AA%85%EB%A0%B9%EC%9D%84-%EB%AA%BB-%EC%B0%BE%EC%9C%BC%EB%A9%B4">터미널 완전 재시작·사용자 PATH 추가</a>, <a href="windows-paths.html">실제 파일·PATH 진단</a></td>
+<td><code>claude</code>·<code>codex</code> 명령을 인식하지 못함</td>
+<td><a href="first-agent.html#%EC%8B%A4%ED%96%89-%EB%AA%85%EB%A0%B9%EC%9D%84-%EB%AA%BB-%EC%B0%BE%EC%9D%84-%EB%95%8C">터미널 완전 재시작·PATH 등록 명령 재실행</a>, <a href="windows-paths.html">실제 파일·PATH 진단</a></td>
 <td><a href="diagnose.html">3. 진단</a></td>
 </tr>
 <tr>
-<td>현재 창만 되고 새 창은 실패</td>
+<td>설치 중에도 허용할지 계속 물어봄</td>
+<td>첫 요청에서 권한을 바꿨는지, 설정 파일의 실제 값, 바꾼 뒤 <a href="start.html#%EC%B2%98%EC%9D%8C-%ED%95%9C-%EB%B2%88-%ED%97%88%EC%9A%A9%ED%95%98%EA%B3%A0-%EB%8B%A4%EC%8B%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0">다시 시작</a>했는지, 안 되면 <a href="first-agent.html#%EA%B6%8C%ED%95%9C%EC%9D%84-%EC%A7%81%EC%A0%91-%EC%84%A4%EC%A0%95%ED%95%98%EB%A0%A4%EB%A9%B4">직접 설정</a></td>
+<td><a href="diagnose.html">3. 진단</a></td>
+</tr>
+<tr>
+<td>현재 창에서만 되고 새 창에서는 실패</td>
 <td>사용자 PATH의 영구 값과 프로세스 환경 구분</td>
 <td><a href="diagnose.html">3. 진단</a></td>
 </tr>
 <tr>
 <td>스크립트 실행 정책 오류</td>
-<td><code>.ps1</code> shim인지, 로컬 파일 차단인지 확인</td>
+<td><code>.ps1</code> shim 문제인지, 로컬 파일 차단인지 확인</td>
 <td>아래 PowerShell 오류</td>
 </tr>
 <tr>
 <td>로그인·이용권 오류</td>
 <td>의도한 계정·로그인 상태·공식 이용 가능 여부</td>
-<td><a href="first-agent.html">최초 설치</a></td>
+<td><a href="first-agent.html">1. 최초 설치</a></td>
 </tr>
 <tr>
-<td>CLI는 되는데 Paseo에서 제공자 없음</td>
+<td>CLI는 되는데 Paseo에 제공자가 없음</td>
 <td><a href="windows-paths.html#paseo%EC%97%90%EC%84%9C%EB%A7%8C-%EB%AA%BB-%EC%B0%BE%EC%9D%84-%EB%95%8C">Daemon PATH·resolved path·version</a></td>
 <td><a href="paseo.html">5. Paseo</a></td>
 </tr>
 <tr>
 <td>접속 거부</td>
-<td>대상 host·실제 포트·데몬 실행·다른 포트 점유</td>
+<td>대상 host·실제 포트·데몬 실행 여부·다른 프로그램의 포트 점유</td>
 <td><a href="paseo.html">5. Paseo</a></td>
 </tr>
 <tr>
-<td>로컬은 되고 폰은 안 됨</td>
+<td>PC에서는 되고 휴대폰에서는 안 됨</td>
 <td><a href="paseo-network.html#qr%EB%A1%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0">QR 연결·릴레이 켜짐·PC 전원과 인터넷</a>, Tailscale이면 전달 규칙·접근 정책</td>
 <td><a href="mobile.html">6. 모바일</a></td>
 </tr>
 <tr>
-<td>폰은 되고 localhost가 안 됨</td>
-<td>Tailscale을 쓸 때 loopback bind를 Tailnet IP로 치환했는지</td>
+<td>휴대폰에서는 되고 localhost에서는 안 됨</td>
+<td>Tailscale 사용 시 loopback bind를 Tailnet IP로 바꿨는지</td>
 <td><a href="mobile.html">6. 모바일</a></td>
 </tr>
 <tr>
 <td>연결이 403으로 거부됨</td>
-<td>실제 host/origin·비밀번호 오류를 로그에서 구분하고 해당 값만 공식 설정과 대조</td>
+<td>로그에서 실제 host·origin 문제와 비밀번호 오류를 구분하고 해당 값만 공식 설정과 대조</td>
 <td><a href="mobile.html">6. 모바일</a></td>
 </tr>
 <tr>
-<td>연결되지만 답변 없음</td>
+<td>연결은 되지만 답변 없음</td>
 <td>제공자 실행·계정·한도·로그·현재 작업 환경</td>
 <td><a href="paseo.html">5. Paseo</a></td>
 </tr>
 <tr>
 <td>설정을 바꿔도 그대로</td>
-<td>실제 사용하는 config·reload 결과·구동 override</td>
+<td>실제로 쓰이는 config·reload 결과·구동 시 덮어쓰는 값</td>
 <td><a href="paseo.html">5. Paseo</a></td>
 </tr>
 <tr>
-<td>파일·지침을 못 읽음</td>
-<td>실제 cwd·경로·trust·기존 지침 충돌</td>
+<td>파일·지침을 읽지 못함</td>
+<td>실제 cwd·경로·trust·기존 지침과의 충돌</td>
 <td><a href="workspace.html">4. 작업공간</a></td>
 </tr>
 <tr>
-<td>재부팅·절전 뒤 원격 끊김</td>
-<td>앱/데몬·인터넷·PC 절전, Tailscale을 쓰면 그 연결도</td>
+<td>재부팅·절전 뒤 원격 연결 끊김</td>
+<td>앱·데몬·인터넷·PC 절전, Tailscale 사용 시 그 연결</td>
 <td><a href="maintenance.html">8. 유지</a></td>
 </tr>
 </tbody></table>
-<h2 id="에이전트도-아직-실행이-안-된다면">에이전트도 아직 실행이 안 된다면</h2>
-<p>설치 메시지에 나온 절대경로로 실행할 수 있는지 먼저 확인해요. 실행되면 그 에이전트가 PATH·Paseo 진단을 이어가게 해요. 설치 자체가 실패하면 사용한 명령과 오류 문장을 평소 쓰던 웹 AI에 보내 공식 설치 안내와 대조해요. 무작정 다른 계정·WSL·다른 제공자로 바꾸지 않아요.</p>
+<h2 id="에이전트를-아직-실행할-수-없을-때">에이전트를 아직 실행할 수 없을 때</h2>
+<p>먼저 설치 메시지에 나온 절대경로로 실행되는지 확인합니다. 실행되면 그 에이전트에게 PATH·Paseo 진단을 이어서 맡깁니다. 설치 자체가 실패했다면 사용한 명령과 오류 문장을 평소 쓰던 웹 AI에 보내 공식 설치 안내와 대조합니다. 무작정 다른 계정·WSL·다른 제공자로 바꾸지 않습니다.</p>
 <h2 id="powershell-오류">PowerShell 오류</h2>
 <ul>
-<li><code>irm</code>을 모른다는 오류는 CMD에서 PowerShell 명령을 실행했는지 확인해요. <code>&amp;&amp;</code> 오류는 현재 PowerShell 버전이 해당 구문을 지원하는지 확인해요.</li>
-<li><code>.ps1</code> 실행이 차단되면 실제 실행파일·공식 <code>.cmd</code> 또는 <code>.exe</code>·프로세스 한정 실행 방법을 확인해요. <code>Set-ExecutionPolicy Unrestricted</code> 같은 전역 완화를 기본 해결로 쓰지 않아요.</li>
-<li>내려받은 로컬 파일의 인터넷 차단 표식이 원인이면 출처와 내용을 검토한 뒤 그 파일만 차단 해제해요. 회사가 관리하는 정책을 우회하지 않아요.</li>
-<li>한글·공백 경로는 실제 경로에 따옴표를 쓰고 <code>-LiteralPath</code>를 사용해요. Windows 경로를 WSL 경로로 간주하지 않아요.</li>
+<li><code>irm</code>을 모른다는 오류가 나면 PowerShell 명령을 CMD에서 실행하지 않았는지 확인합니다. <code>&amp;&amp;</code> 오류가 나면 현재 PowerShell 버전이 그 구문을 지원하는지 확인합니다.</li>
+<li><code>.ps1</code> 실행이 차단되면 실제 실행 파일, 공식 <code>.cmd</code>·<code>.exe</code>, 프로세스에만 적용되는 실행 방법이 있는지 확인합니다. <code>Set-ExecutionPolicy Unrestricted</code> 같은 전역 완화를 기본 해결책으로 쓰지 않습니다.</li>
+<li>내려받은 로컬 파일에 붙은 인터넷 차단 표식이 원인이면 출처와 내용을 검토한 뒤 그 파일만 차단을 해제합니다. 회사가 관리하는 정책은 우회하지 않습니다.</li>
+<li>한글이나 공백이 들어간 경로는 따옴표로 감싸고 <code>-LiteralPath</code>를 씁니다. Windows 경로를 WSL 경로로 취급하지 않습니다.</li>
 </ul>
 <h2 id="버전과-다운로드">버전과 다운로드</h2>
-<p>네트워크·DNS·프록시·공식 배포 주소와 요청한 tag 존재를 구분해요. 이 버전의 계약은 가이드 <code>v1.1.0</code>과 문턱 <code>v0.2.0</code>이에요. 릴리스 전 검토 환경에서는 로컬 소스를 사용할 수 있지만, 공개 버전의 파일이 없는데 성공한 것으로 안내하지 않아요. 다른 버전을 가져오려면 설치 계약 차이를 확인해요.</p>
+<p>네트워크·DNS·프록시 문제, 공식 배포 주소 문제, 요청한 tag가 없는 문제를 구분합니다. 이 버전의 계약은 가이드 <code>v1.1.0</code>과 문턱 <code>v0.2.0</code>입니다. 릴리스 전 검토 환경에서는 로컬 소스를 써도 되지만, 공개 버전의 파일이 없는데 성공했다고 안내하지 않습니다. 다른 버전을 가져오려면 설치 계약이 어떻게 다른지 먼저 확인합니다.</p>
 <h2 id="증거를-남기고-재개하기">증거를 남기고 재개하기</h2>
-<p><code>state/setup-status.md</code>에 실패 검사, 관찰 오류, 변경한 것, 재검사 결과, 다음 사용자 행동을 남겨요. 실제 사용자가 조작할 기기·로그인이 필요하면 그 부분만 요청해요. 로그는 해당 오류 구간만 보고 민감정보를 지워요. 설치/설정 전체 삭제·계정 인증 복사·방화벽 전체 해제부터 시작하지 않아요.</p>
+<p><code>state/setup-status.md</code>에 실패한 검사, 관찰한 오류, 바꾼 것, 재검사 결과, 사용자가 다음에 할 행동을 남깁니다. 사용자가 직접 기기를 조작하거나 로그인해야 하면 그 부분만 요청합니다. 로그는 해당 오류 구간만 보고 민감 정보를 지웁니다. 설치·설정 전체 삭제, 계정 인증 복사, 방화벽 전체 해제부터 시작하지 않습니다.</p>
 <pre><code class="language-text">이 단계에서 막혔어요. 사용한 명령과 오류는 아래와 같아요.
-현재 로컬 setup-status.md를 읽고 원인을 확인한 뒤, 필요한 수정만 하고 실패한 검사를 다시 해줘요.
-내가 해야 할 일이 있으면 한 번에 하나씩 알려줘요.
+현재 로컬 setup-status.md를 읽고 원인을 확인한 뒤, 필요한 수정만 하고 실패한 검사를 다시 해 주세요.
+내가 해야 할 일이 있으면 한 번에 하나씩 알려 주세요.
 </code></pre>
 <p><a href="router.html">가이드 라우터</a> · <a href="https://paseo.sh/docs/troubleshooting">Paseo 공식 오류 안내</a></p>
 

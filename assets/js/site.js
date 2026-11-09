@@ -8,8 +8,8 @@ async function copyText(element, button) {
   try {
     await navigator.clipboard.writeText(element.textContent);
     const previous = button.textContent;
-    button.textContent = "복사했어요 ✓";
-    if (status) status.textContent = "에이전트 대화창에 붙여넣어 주세요.";
+    button.textContent = "복사했습니다 ✓";
+    if (status) status.textContent = "에이전트 대화창에 붙여 넣으세요.";
     window.setTimeout(() => {
       button.textContent = previous;
     }, 2200);
@@ -22,7 +22,7 @@ async function copyText(element, button) {
     element.focus();
     if (status)
       status.textContent =
-        "복사를 허용하지 않는 환경이에요. 선택된 글을 Ctrl+C 또는 길게 눌러 복사하세요.";
+        "이 환경에서는 자동 복사를 할 수 없습니다. 선택된 글을 Ctrl+C로 복사하거나 길게 눌러 복사하세요.";
     else button.textContent = "선택한 글을 직접 복사하세요";
   }
 }

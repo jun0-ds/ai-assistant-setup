@@ -6,7 +6,7 @@
     <title>공식 자료 · AI 어시스턴트 시작하기</title>
     <meta
       name="description"
-      content="AI 에이전트 설치와 사용을 돕는 단계별 안내예요."
+      content="AI 에이전트 설치와 사용을 돕는 단계별 안내입니다."
     />
     <link rel="stylesheet" href="../assets/css/landing.css" />
     <script src="../assets/js/site.js" defer></script>
@@ -41,19 +41,20 @@
 <a href="troubleshooting.html">문제 해결</a>
 <a href="wsl-migration.html">WSL로 옮기기</a>
 <a href="sources.html" aria-current="page">공식 자료</a>
+<a href="claude-codex.html">Claude·Codex 함께 쓰기</a>
 <a href="workspace-files.html">작업 파일과 보관</a></div></nav>
         </details>
       </aside>
       <main id="main" class="document">
         <a class="back-link" href="../index.html">← 시작 화면</a>
-        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내예요.</p><h1 id="공식-자료와-확인-범위">공식 자료와 확인 범위</h1>
-<p>확인일: 2026-10-19 KST. 설치 명령·설정 계약은 아래 공식 문서를 대조했어요. 계정별 이용 가능 여부·요금·모델은 이 가이드에서 고정하지 않아요. 새 버전이나 오류가 생기면 현재 설치된 버전과 공식 문서를 다시 대조해요.</p>
+        <p class="document-audience">진행 중 필요할 때 찾아보는 참고 안내입니다.</p><h1 id="공식-자료와-확인-범위">공식 자료와 확인 범위</h1>
+<p>확인일: 2026-10-19 KST. 설치 명령과 설정 계약은 아래 공식 문서와 대조했습니다. 계정별 이용 가능 여부·요금·모델은 이 가이드에서 정하지 않습니다. 새 버전이 나오거나 오류가 생기면 현재 설치된 버전을 공식 문서와 다시 대조합니다.</p>
 <table>
 <thead>
 <tr>
 <th>주제</th>
 <th>원천</th>
-<th>이번 가이드에 반영한 범위</th>
+<th>이 가이드에 반영한 범위</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -64,17 +65,32 @@
 <tr>
 <td>Windows Terminal</td>
 <td><a href="https://github.com/microsoft/terminal/pull/14999">#14999</a></td>
-<td>1.18부터 새 탭·창이 환경변수를 다시 읽는 기본값과 <code>compatibility.reloadEnvironmentVariables</code> 설정(2026-11-07 확인)</td>
+<td>1.18부터 새 탭·창이 환경 변수를 다시 읽는 기본값과 <code>compatibility.reloadEnvironmentVariables</code> 설정(2026-11-07 확인)</td>
 </tr>
 <tr>
 <td>Codex Windows</td>
 <td><a href="https://developers.openai.com/codex/windows">Windows</a></td>
-<td>네이티브 사용 가능·현재 권한 안내는 공식 설정 따름</td>
+<td>네이티브 사용 가능 여부, 권한 안내는 공식 설정을 따름</td>
 </tr>
 <tr>
 <td>Claude Code</td>
 <td><a href="https://code.claude.com/docs/en/setup">설치</a></td>
-<td>네이티브 설치·설치기가 PATH를 바꾸지 않는 동작과 <a href="https://code.claude.com/docs/en/troubleshoot-install#verify-your-path">PATH 해결</a>·WinGet 대안과 수동 업데이트(2026-11-04 확인)·새 창·선택적 Git for Windows</td>
+<td>네이티브 설치, 설치기가 PATH를 바꾸지 않는 동작과 <a href="https://code.claude.com/docs/en/troubleshoot-install#verify-your-path">PATH 해결</a>(2026-11-04 확인), 새 창, 선택적 Git for Windows</td>
+</tr>
+<tr>
+<td>Claude Code 권한</td>
+<td><a href="https://code.claude.com/docs/en/permissions">권한</a>, <a href="https://code.claude.com/docs/en/permission-modes">권한 모드</a></td>
+<td>사용자 설정의 <code>defaultMode</code>·<code>bypassPermissions</code>와 <code>skipDangerousModePermissionPrompt</code>, <code>auto</code> 모드와 사용 조건, 모드와 무관하게 막히는 삭제(2026-11-09 확인)</td>
+</tr>
+<tr>
+<td>Claude 사용자 규칙·PowerShell</td>
+<td><a href="https://code.claude.com/docs/en/memory#user-level-rules">메모리</a>, <a href="https://code.claude.com/docs/en/tools-reference#powershell-tool">도구</a></td>
+<td><code>~/.claude/rules/</code>의 규칙이 모든 프로젝트에 실림, Windows에서 PowerShell 도구가 프로세스 범위 실행 정책 우회로 <code>.ps1</code> 실행(2026-11-09 확인)</td>
+</tr>
+<tr>
+<td>Codex 권한</td>
+<td><a href="https://learn.chatgpt.com/docs/config-file/config-reference">설정 항목</a>, <a href="https://learn.chatgpt.com/docs/windows/windows-sandbox">Windows 샌드박스</a></td>
+<td><code>approval_policy</code>·<code>sandbox_mode</code> 값과 <code>~/.codex/config.toml</code> 위치(2026-11-09 확인)</td>
 </tr>
 <tr>
 <td>Paseo</td>
@@ -94,7 +110,7 @@
 <tr>
 <td>Tailscale TCP</td>
 <td><a href="https://tailscale.com/docs/reference/tailscale-cli/serve">Serve CLI</a>, <a href="https://tailscale.com/docs/reference/examples/serve">Windows 예제</a></td>
-<td>raw TCP·백그라운드·포트별 해제·관리자 조작</td>
+<td>raw TCP·백그라운드 실행·포트별 해제·관리자 조작</td>
 </tr>
 <tr>
 <td>문턱</td>
@@ -109,10 +125,10 @@
 <tr>
 <td>ICM</td>
 <td><a href="https://github.com/RinDig/Interpreted-Context-Methdology">원천</a>, <a href="https://github.com/RinDig/Interpreted-Context-Methdology/blob/main/_core/CONVENTIONS.md">구성 원칙</a></td>
-<td>선택 로딩·단계 입력/진행/출력·참고/작업 파일 분리</td>
+<td>선택 로딩·단계별 입력/진행/출력·참고 파일과 작업 파일 분리</td>
 </tr>
 </tbody></table>
-<p>Tailscale TCP 전달을 localhost Paseo에 조합한 경로는 원천 기능을 이용한 구성안이에요. Paseo 공식 문서가 이 조합 전체를 직접 보장한다는 뜻은 아니에요. 실제 Windows/휴대폰 왕복과 재부팅 지속성은 설치할 기기에서 검증해요. TCP 연결이나 provider 버전 확인은 실제 에이전트 응답을 대체하지 않아요.</p>
+<p>Tailscale TCP 전달과 localhost Paseo를 조합한 경로는 원천 기능을 이용한 구성안입니다. Paseo 공식 문서가 이 조합 전체를 직접 보장하지는 않습니다. 실제 Windows·휴대폰 왕복과 재부팅 뒤 유지 여부는 설치할 기기에서 검증합니다. TCP 연결이나 provider 버전 확인이 실제 에이전트 응답을 대신하지는 않습니다.</p>
 
         <nav class="step-navigation" aria-label="단계 안내 이동">
 </nav>

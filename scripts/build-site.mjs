@@ -66,6 +66,11 @@ export const documents = [
   },
   { source: "references/sources.md", slug: "sources", label: "공식 자료" },
   {
+    source: "references/claude-codex.md",
+    slug: "claude-codex",
+    label: "Claude·Codex 함께 쓰기",
+  },
+  {
     source: "references/workspace.md",
     slug: "workspace-files",
     label: "작업 파일과 보관",
@@ -158,9 +163,9 @@ export async function buildSite(root = projectRoot) {
     const adjacent = [doc.step && documents.find((item) => item.step === doc.step - 1), doc.step && documents.find((item) => item.step === doc.step + 1)];
     const stepNavigation = adjacent.map((item, index) => item
       ? `<a href="${item.slug}.html">${index === 0 ? "← 이전 안내:" : "다음 안내:"} ${escapeHtml(documentTitle(item))}${index === 1 ? " →" : ""}</a>` : "").join("\n");
-    const audience = doc.step <= 2 ? "직접 준비해요" : documentGroup(doc) === "에이전트와 진행"
-      ? "첫 요청을 받은 에이전트가 읽어요. 현재 상태에 맞는 단계부터 진행하고, 필요한 로그인·기기 조작을 함께해요."
-      : "진행 중 필요할 때 찾아보는 참고 안내예요.";
+    const audience = doc.step <= 2 ? "직접 준비하는 단계입니다." : documentGroup(doc) === "에이전트와 진행"
+      ? "첫 요청을 받은 에이전트가 읽는 문서입니다. 현재 상태에 맞는 단계부터 진행하며, 필요한 로그인·기기 조작은 사용자와 함께합니다."
+      : "진행 중 필요할 때 찾아보는 참고 안내입니다.";
     await writeFile(
       path.join(root, `guide/${doc.slug}.html`),
       apply(documentTemplate, {

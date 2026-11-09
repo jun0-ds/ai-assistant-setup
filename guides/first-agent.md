@@ -1,148 +1,183 @@
 # 1. 첫 에이전트 설치
 
-Windows에서 Claude Code와 Codex 중 사용할 계정이 있는 하나를 고르세요. WSL이나 VS Code를 먼저 준비할 필요는 없어요. 두 회사의 로그인과 이용 요금은 별개예요. 이용 가능 여부는 각 공식 안내에서 확인해요.
+Claude Code와 Codex 중 사용할 계정이 있는 쪽 하나를 고릅니다. WSL이나 VS Code는 미리 준비하지 않아도 됩니다. 두 서비스는 로그인과 요금이 따로이며, 이용 가능 여부는 각 공식 안내에서 확인합니다.
 
-이 문서는 전체 안내의 1단계예요. **1-1. PowerShell 열기 → 1-2. 하나만 설치·로그인 → 1-3. 첫 답변 확인**까지 마친 뒤 [2. 첫 요청](../prompts/start.md)을 보내요.
+이 문서는 전체 안내의 1단계입니다. **1-1. PowerShell 열기 → 1-2. 설치·PATH 등록·로그인 → 1-3. 첫 답변 확인**까지 마친 뒤 [2. 첫 요청](../prompts/start.md)을 보냅니다.
 
 ## 1-1. PowerShell 열기
 
-시작 메뉴에서 Windows PowerShell을 검색해 일반 창으로 열어요. `PS C:\…>`가 보이면 맞아요. 처음부터 관리자 창을 열지는 않아요.
+시작 메뉴에서 Windows PowerShell을 검색해 일반 창으로 엽니다. `PS C:\…>`가 보이면 제대로 연 것입니다. 관리자 창으로 열 필요는 없습니다.
 
-## 1-2. 에이전트 하나만 설치하고 로그인하기
+## 1-2. 에이전트 하나 설치·로그인
 
-Claude Code와 Codex 중 **고른 쪽의 설치·확인·로그인만** 따라가요. 둘 다 설치할 필요는 없어요. 공식 서버에서 설치 프로그램을 받아 실행하므로 주소를 확인하세요.
+고른 쪽의 안내만 따라갑니다. 둘 다 설치할 필요는 없습니다. 설치 명령은 공식 서버에서 설치 프로그램을 받아 실행하므로 주소가 맞는지 확인합니다.
+
+Windows에서는 설치를 마쳐도 `claude`나 `codex` 명령을 찾지 못하는 경우가 많습니다. 그래서 설치 직후 **PATH 등록 명령을 반드시 실행합니다.** 이미 등록돼 있으면 아무것도 바꾸지 않으므로 여러 번 실행해도 괜찮습니다.
+
+에이전트는 기본적으로 명령을 실행하거나 파일을 바꿀 때마다 허용할지 묻습니다. 명령어를 모르면 답하기 어려우므로, 2단계 첫 요청에서 에이전트가 설치를 마칠 때까지 묻지 않고 진행하도록 자기 권한 설정을 먼저 바꿉니다. 이때 확인 창이 한 번 뜨면 허용합니다. 설치가 끝나면 에이전트가 평소 쓰기에 알맞은 수준으로 다시 조정합니다.
 
 <a id="claude"></a>
 ### Claude Code
 
-**설치 명령 실행하기**
+**① 설치 명령 실행**
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
 
-다운로드 표시 없이 한동안 멈춘 듯 보일 수 있어요. 끝나면 마지막 `Installation complete!`만 보지 말고 그 위의 `Setup notes:`도 읽어요.
+진행 표시 없이 한동안 멈춘 듯 보일 수 있습니다. `Installation complete!`가 나오면 끝난 것입니다. 오류로 끝나면 같은 명령을 반복하지 말고 오류 문장을 남겨 둔 채 아래 [실행 명령을 못 찾을 때](#실행-명령을-못-찾을-때)의 마지막 문단을 봅니다.
 
-**`Setup notes`에 `… is not in your PATH`가 보이면**
+**② PATH 등록 명령 실행**
 
-설치는 된 거예요. 이 설치기는 실행 위치(`C:\Users\사용자\.local\bin`)를 PATH에 직접 넣지 않아요. 그대로 두면 새 창에서도 `claude`를 찾지 못해요. 아래 [실행 명령을 못 찾으면](#실행-명령을-못-찾으면)의 2번 Claude Code 두 줄을 실행해요.
-
-**설치 명령이 빨간 오류로 끝나면**
-
-같은 명령을 반복하지 말고 공식 대안인 WinGet으로 설치해요. 오류 문장은 나중에 에이전트에게 보여 줄 수 있게 남겨 둬요.
+같은 창에 아래 내용을 통째로 붙여 넣고 Enter를 누릅니다. Claude 설치 프로그램은 실행 파일이 있는 폴더(`C:\Users\사용자\.local\bin`)를 PATH에 넣지 않습니다. 이 명령이 내 계정의 PATH에 그 폴더를 추가하므로 관리자 창은 필요 없습니다. [공식 PATH 안내](https://code.claude.com/docs/en/troubleshoot-install#verify-your-path)의 명령에 이미 등록됐는지 확인하는 조건만 더했습니다.
 
 ```powershell
-winget install Anthropic.ClaudeCode
+$dir = "$env:USERPROFILE\.local\bin"
+$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+if (($userPath -split ';') -notcontains $dir) {
+  [Environment]::SetEnvironmentVariable('PATH', "$userPath;$dir", 'User'); 'Added to PATH.'
+} else { 'Already in PATH.' }
 ```
 
-WinGet 설치는 자동 업데이트되지 않아요. 가끔 `winget upgrade Anthropic.ClaudeCode`를 실행해요.
+`Added to PATH.`(추가함)나 `Already in PATH.`(이미 등록됨) 중 하나가 나오면 다음으로 넘어갑니다.
 
-**PowerShell을 모두 닫고 새로 열어 설치 확인하기**
+**③ PowerShell을 모두 닫고 다시 열어 설치 확인**
 
-열려 있는 PowerShell·터미널 창을 모두 닫은 뒤 시작 메뉴에서 다시 열어요. 설치한 창에서는 바뀐 설정이 반영되지 않아요. 명령을 찾지 못한다는 오류가 나오면 [실행 명령을 못 찾으면](#실행-명령을-못-찾으면)으로 가요.
+열려 있는 PowerShell·터미널 창을 모두 닫고 시작 메뉴에서 다시 엽니다. 이미 열려 있던 창에는 바뀐 PATH가 반영되지 않습니다.
 
 ```powershell
 Get-Command claude -All
 claude --version
 ```
 
-**실행하고 로그인하기**
+버전이 나오면 성공입니다. 명령을 찾지 못한다는 오류가 나오면 [실행 명령을 못 찾을 때](#실행-명령을-못-찾을-때)로 갑니다.
+
+**④ 실행·로그인**
 
 ```powershell
 claude
 ```
 
-화면 안내에 따라 본인의 Claude 계정으로 로그인해요. 브라우저 로그인은 직접 완료해요. [공식 설치 안내](https://code.claude.com/docs/en/setup)
+화면 안내에 따라 본인의 Claude 계정으로 로그인합니다. 브라우저 로그인은 직접 마칩니다. 이 폴더를 신뢰하는지 묻는 화면이 나오면 신뢰한다(Yes)를 고릅니다. [공식 설치 안내](https://code.claude.com/docs/en/setup)
 
 <a id="codex"></a>
 ### Codex
 
-**설치 명령 실행하기**
+**① 설치 명령 실행**
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 ```
 
-공식 Windows 설치 명령이에요. 실행 정책 옵션은 해당 프로세스에 적용돼요. 컴퓨터 전체 실행 정책을 변경할 필요는 없어요. 이 설치기는 PATH 등록까지 시도해요. 끝에 `Current PowerShell session: codex`라고 나와도 이 명령은 별도 PowerShell에서 돌기 때문에 지금 창에서는 `codex`를 찾지 못해요. 아래처럼 새로 열어 확인해요.
+공식 Windows 설치 명령입니다. 실행 정책 옵션은 이 명령에만 적용되므로 컴퓨터 전체의 실행 정책은 바뀌지 않습니다. 마지막에 `Current PowerShell session: codex`라는 문구가 나와도 지금 창에서는 `codex`를 찾지 못합니다. 설치가 별도 PowerShell에서 돌았기 때문입니다.
 
-설치 중에 `[y/N]` 질문이 나올 수 있어요.
+설치 중에 `[y/N]` 질문이 나올 수 있습니다.
 
-- `Start Codex now? [y/N]`: Enter를 눌러 넘어가요. 아래처럼 새 창에서 확인한 뒤 실행해요.
-- `Uninstall the existing npm-managed Codex now? [y/N]`: 예전에 npm으로 설치한 Codex가 있다는 뜻이에요. 지금은 Enter를 눌러 그대로 두고, 3단계 진단에서 에이전트와 어느 쪽을 쓸지 정해요.
-- `Replace it with the current Codex setup now? [y/N]`: 예전 방식 설치가 있다는 뜻이에요. `y`를 입력하면 예전 폴더를 `.backup`이 붙은 이름으로 옮겨 보존하고 설치를 이어가요. Enter면 설치가 멈춰요.
-- 그 밖의 질문은 Enter로 넘기고 질문 문장을 남겨 둬요.
+- `Start Codex now? [y/N]`: Enter를 눌러 넘어갑니다. 아래 순서대로 PATH를 등록한 뒤 새 창에서 실행합니다.
+- `Uninstall the existing npm-managed Codex now? [y/N]`: 예전에 npm으로 설치한 Codex가 있다는 뜻입니다. 지금은 Enter를 눌러 그대로 두고, 어느 쪽을 쓸지는 3단계 진단에서 에이전트와 정합니다.
+- `Replace it with the current Codex setup now? [y/N]`: 예전 방식으로 설치한 Codex가 있다는 뜻입니다. `y`를 입력하면 예전 폴더를 이름 끝에 `.backup`을 붙여 보존하고 설치를 이어 갑니다. Enter를 누르면 설치가 멈춥니다.
+- 그 밖의 질문은 Enter로 넘기고 질문 문장을 남겨 둡니다.
 
-**PowerShell을 모두 닫고 새로 열어 설치 확인하기**
+**② PATH 등록 명령 실행**
 
-열려 있는 PowerShell·터미널 창을 모두 닫은 뒤 시작 메뉴에서 다시 열어요. 설치한 창에서는 바뀐 설정이 반영되지 않아요. 명령을 찾지 못한다는 오류가 나오면 [실행 명령을 못 찾으면](#실행-명령을-못-찾으면)으로 가요.
+같은 창에 아래 내용을 통째로 붙여 넣고 Enter를 누릅니다. Codex 설치 프로그램은 PATH 등록을 시도하지만 빠지는 경우가 있어 한 번 더 확인합니다. 공식 문서에는 Codex용 PATH 명령이 없어서 Claude 공식 명령과 같은 형식에 Codex 폴더(`%LOCALAPPDATA%\Programs\OpenAI\Codex\bin`)를 넣었습니다. 내 계정의 PATH만 바꾸므로 관리자 창은 필요 없습니다.
+
+```powershell
+$dir = "$env:LOCALAPPDATA\Programs\OpenAI\Codex\bin"
+$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+if (($userPath -split ';') -notcontains $dir) {
+  [Environment]::SetEnvironmentVariable('PATH', "$userPath;$dir", 'User'); 'Added to PATH.'
+} else { 'Already in PATH.' }
+```
+
+`Added to PATH.`(추가함)나 `Already in PATH.`(이미 등록됨) 중 하나가 나오면 다음으로 넘어갑니다.
+
+**③ PowerShell을 모두 닫고 다시 열어 설치 확인**
+
+열려 있는 PowerShell·터미널 창을 모두 닫고 시작 메뉴에서 다시 엽니다. 이미 열려 있던 창에는 바뀐 PATH가 반영되지 않습니다.
 
 ```powershell
 Get-Command codex -All
 codex --version
 ```
 
-**실행하고 로그인하기**
+버전이 나오면 성공입니다. 명령을 찾지 못한다는 오류가 나오면 [실행 명령을 못 찾을 때](#실행-명령을-못-찾을-때)로 갑니다.
+
+**④ 실행·로그인**
 
 ```powershell
 codex
 ```
 
-제공되는 인증 방법에서 본인의 계정으로 로그인해요. 브라우저 로그인과 필요한 최초 권한 설정은 직접 완료해요. [공식 CLI 안내](https://developers.openai.com/codex/cli) · [Windows 안내](https://developers.openai.com/codex/windows)
+화면에 나오는 인증 방법 중 하나로 본인 계정에 로그인합니다. 브라우저 로그인은 직접 마칩니다. 이 폴더를 신뢰하는지 묻는 화면이 나오면 신뢰한다(Yes)를 고릅니다. [공식 CLI 안내](https://developers.openai.com/codex/cli) · [Windows 안내](https://developers.openai.com/codex/windows)
 
-## 1-3. 첫 답변 확인하기
+## 1-3. 첫 답변 확인
 
-실행한 에이전트에 이렇게 보내요.
+실행한 에이전트에 아래 문장을 보냅니다.
 
 ```text
-Windows 네이티브에서 처음 쓰고 있어요. 지금은 파일을 바꾸지 말고, 대화할 준비가 됐는지 짧게 답해줘요.
+Windows 네이티브에서 처음 쓰고 있어요. 지금은 파일을 바꾸지 말고, 대화할 준비가 됐는지 짧게 답해 주세요.
 ```
 
-실제 답변이 돌아오면 2. 첫 요청으로 가요. 실행이나 로그인이 안 됐다면 아래 문제 해결 안내부터 확인해요.
+답변이 돌아오면 2. 첫 요청으로 갑니다. 실행이나 로그인이 되지 않았다면 아래 문제 해결 안내부터 확인합니다.
 
-## 다음은 2. 첫 요청이에요
+## 다음 단계: 2. 첫 요청
 
-[첫 요청](../prompts/start.md)을 복사해 지금 답변한 에이전트에 이어서 보내세요. 이후 환경 진단과 설치 준비는 에이전트가 진행해요. 직접 할 일은 한 번에 하나씩 알려줄 거예요.
+[첫 요청](../prompts/start.md)을 복사해 방금 답한 에이전트에게 이어서 보냅니다. 그 뒤의 환경 진단과 설치 준비는 에이전트가 진행하며, 직접 할 일은 한 번에 하나씩 알려 줍니다.
 
-## 실행 명령을 못 찾으면
+## 실행 명령을 못 찾을 때
 
-`'claude' 용어가 … 인식되지 않습니다`나 `'codex' … is not recognized` 오류는 Claude Code와 Codex 모두에서 나올 수 있어요. 설치가 실패했다는 뜻은 아니에요.
+`'claude' 용어가 … 인식되지 않습니다`나 `'codex' … is not recognized` 같은 오류는 Claude Code와 Codex 모두에서 나올 수 있습니다. 설치에 실패했다는 뜻은 아닙니다.
 
-PATH는 Windows가 명령을 찾아보는 폴더 목록이에요. 프로그램이 있는 폴더가 이 목록에 없거나, 열려 있는 터미널이 바뀐 목록을 아직 모르면 이 오류가 나요. 설치를 다시 해도 해결되지 않으니 아래 순서로 확인해요.
+PATH는 Windows가 명령을 찾을 때 뒤지는 폴더 목록입니다. 프로그램이 있는 폴더가 이 목록에 없거나, 열려 있는 터미널이 바뀐 목록을 아직 모르면 이 오류가 납니다. 다시 설치해도 해결되지 않으므로 아래 순서로 확인합니다.
 
 **1. 터미널을 완전히 닫고 다시 열기**
 
-열려 있는 PowerShell·터미널 창을 모두 닫고 시작 메뉴에서 새로 열어요. 이미 열려 있던 창은 켜질 때 읽은 목록을 계속 써요. 터미널 버전이나 설정에 따라 새 탭도 예전 목록을 쓸 수 있어서 모두 닫는 쪽이 확실해요. 다시 열면 `claude --version`이나 `codex --version`을 실행해요. 버전이 나오면 끝이에요.
+열려 있는 PowerShell·터미널 창을 모두 닫고 시작 메뉴에서 새로 엽니다. 이미 열려 있던 창은 처음 켜질 때 읽은 목록을 계속 씁니다. 터미널 버전이나 설정에 따라서는 새 탭도 예전 목록을 쓰므로 창을 모두 닫는 편이 확실합니다. 다시 연 창에서 `claude --version`이나 `codex --version`을 실행해 버전이 나오면 해결된 것입니다.
 
-**2. 그래도 못 찾으면 사용자 PATH에 폴더 추가하기**
+**2. PATH 등록 명령 다시 실행하기**
 
-고른 에이전트 쪽만 따라가요. 내 계정의 목록만 바꾸므로 관리자 창은 필요 없어요. 먼저 첫 줄로 폴더가 이미 목록에 있는지 봐요. 경로가 한 줄 나오면 이미 들어 있으니 3번으로 가요. 아무것도 안 나올 때만 아래 두 줄을 실행해요.
+②단계를 건너뛰었거나 실행 결과를 확인하지 못했다면 고른 에이전트의 [Claude Code PATH 등록](#claude)이나 [Codex PATH 등록](#codex) 명령을 다시 실행합니다. 이미 등록돼 있으면 아무것도 바꾸지 않습니다. 실행한 뒤에는 1번처럼 창을 모두 닫고 다시 열어 버전을 확인합니다.
 
-Claude Code — [공식 PATH 해결 안내](https://code.claude.com/docs/en/troubleshoot-install#verify-your-path)의 명령 그대로예요.
+**3. 실행 파일 위치로 직접 실행하기**
 
-```powershell
-$env:PATH -split ';' | Select-String '\.local\\bin'
-```
+설치 완료 메시지에 실행 파일 위치가 나왔다면 `& '실제 경로\에이전트.exe'`처럼 직접 실행할 수 있습니다. 기본 위치와 확인 방법은 [경로 진단](../references/windows-paths.md)에 있습니다.
 
-```powershell
-$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
-[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\.local\bin", 'User')
-```
+이 방법으로 실행되면 에이전트에게 “이 경로로만 실행돼요. PowerShell과 Paseo에서도 찾을 수 있게 진단해 주세요”라고 알립니다. 설치부터 실패해 에이전트를 열 수 없다면 평소 쓰던 웹 AI에 사용한 명령과 오류 문장, [오류 안내](../references/troubleshooting.md)를 보내도 됩니다. 로그인 코드·키·토큰·비밀번호는 보내지 않습니다.
 
-Codex — 공식 문서에는 PATH 추가 명령이 없어요. 설치기가 직접 등록하는데 빠졌을 때 쓰도록 위와 같은 방식에 Codex 폴더만 바꿨어요.
+## 권한을 직접 설정하려면
 
-```powershell
-$env:PATH -split ';' | Select-String 'OpenAI\\Codex\\bin'
-```
+보통은 2단계 첫 요청에서 에이전트가 권한 설정을 바꿉니다. 에이전트가 바꾸지 못했거나 직접 해 두고 싶으면 아래 명령을 PowerShell에 붙여 넣습니다. 에이전트를 실행하기 전에 하거나, 실행 중이었다면 끝내고 다시 시작해야 적용됩니다.
+
+**Claude Code**
+
+아래 내용을 통째로 붙여 넣고 Enter를 누릅니다. Claude 설정 파일(`C:\Users\사용자\.claude\settings.json`)에 묻지 않고 진행하는 모드(`bypassPermissions`)와 처음 켤 때 뜨는 경고 창 생략을 기록합니다. 설정 파일이 이미 있으면 다른 내용은 그대로 두고 이 두 값만 바꿉니다.
 
 ```powershell
-$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
-[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:LOCALAPPDATA\Programs\OpenAI\Codex\bin", 'User')
+$file = "$env:USERPROFILE\.claude\settings.json"
+New-Item -ItemType Directory -Force -Path (Split-Path $file) | Out-Null
+$raw = if (Test-Path $file) { [IO.File]::ReadAllText($file) }
+$s = if ($raw) { $raw | ConvertFrom-Json } else { New-Object PSObject }
+if ($s) {
+  if (-not $s.permissions) { $s | Add-Member permissions (New-Object PSObject) -Force }
+  $s.permissions | Add-Member defaultMode 'bypassPermissions' -Force
+  $s | Add-Member skipDangerousModePermissionPrompt $true -Force
+  [IO.File]::WriteAllText($file, ($s | ConvertTo-Json -Depth 20)); 'Permissions set.'
+} else { 'Could not read settings.json. Nothing changed.' }
 ```
 
-실행한 뒤 1번처럼 터미널을 모두 닫고 다시 열어 버전을 확인해요.
+`Permissions set.`(설정함)이 나오면 끝난 것입니다. `Could not read settings.json. Nothing changed.`(읽지 못해 바꾸지 않음)가 나오면 기존 설정 파일에 문제가 있다는 뜻이므로 에이전트에게 이 문장을 그대로 알립니다. 이 모드에서도 Windows 시스템 폴더나 사용자 폴더 전체를 지우는 명령은 Claude Code가 막습니다.
 
-**3. 그래도 안 되면 실행파일 위치로 직접 실행하기**
+**Codex**
 
-설치 완료 메시지의 실행파일 위치가 있으면 `& '실제 경로\에이전트.exe'`처럼 실행할 수 있어요. [경로 진단](../references/windows-paths.md)에 기본 위치와 확인법이 있어요.
+아래 내용을 통째로 붙여 넣고 Enter를 누릅니다. Codex 설정 파일(`C:\Users\사용자\.codex\config.toml`)의 맨 앞에 묻지 않고 진행하는 설정(`approval_policy = 'never'`)과 작업 폴더 밖에서도 일할 수 있는 설정(`sandbox_mode = 'danger-full-access'`)을 넣습니다. 설치 과정에서 Paseo 설치, PATH 정리, 작업공간 생성처럼 작업 폴더 밖의 일을 해야 하기 때문입니다.
 
-절대경로로 실행되면 에이전트에게 “이 경로로만 실행돼요. PowerShell과 Paseo에서도 찾도록 진단해줘요”라고 알려주세요. 설치 자체가 실패해 열 수 없다면 평소 쓰던 웹 AI에 사용한 명령·오류 문장과 [오류 안내](../references/troubleshooting.md)를 보내도 돼요. 로그인 코드·키·토큰·비밀번호는 보내지 마세요.
+```powershell
+$file = "$env:USERPROFILE\.codex\config.toml"
+New-Item -ItemType Directory -Force -Path (Split-Path $file) | Out-Null
+$old = if (Test-Path $file) { [IO.File]::ReadAllText($file) } else { '' }
+if ($old -match '(?m)^\s*(approval_policy|sandbox_mode|default_permissions)\s*=') { 'Existing permission settings kept.' }
+else { [IO.File]::WriteAllText($file, "approval_policy = 'never'`nsandbox_mode = 'danger-full-access'`n" + $old); 'Permissions set.' }
+```
+
+`Permissions set.`(설정함)이 나오면 끝난 것입니다. `Existing permission settings kept.`(기존 설정 유지)가 나오면 예전에 직접 정한 권한 설정이 있다는 뜻입니다. 이때는 3단계 진단에서 에이전트가 기존 설정을 확인합니다.
