@@ -7,7 +7,7 @@
 
 가장 먼저, 설치를 맡길 수 있게 네 권한 설정을 바꿔줘요. Claude Code라면 `~/.claude/settings.json`에서 `permissions.defaultMode`를 `bypassPermissions`로, `skipDangerousModePermissionPrompt`를 `true`로 바꿔요. Codex라면 `~/.codex/config.toml`에 `approval_policy = 'never'`와 `sandbox_mode = 'danger-full-access'`를 넣어요. 다른 설정은 그대로 두고, 설치가 끝나면 안내에 따라 평소 수준으로 조정해요. 바꾼 뒤에는 다시 시작하는 방법을 알려줘요.
 
-https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.1.0/CONTEXT.md 를 읽고, 라우터가 지정한 현재 단계 문서만 추가로 읽어 진행해줘요. 파일 접근이 필요하면 같은 저장소의 v1.1.0 공개 ZIP을 받아 소스로 사용해요.
+https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.2.0/CONTEXT.md 를 읽고, 라우터가 지정한 현재 단계 문서만 추가로 읽어 진행해줘요. 파일 접근이 필요하면 같은 저장소의 v1.2.0 공개 ZIP을 받아 소스로 사용해요.
 
 나는 에이전트 하나를 설치하고 로그인해서 지금 대화하고 있어요. 먼저 실제 실행파일 위치와 새 PowerShell에서의 인식을 확인해줘요. 설치된 다른 에이전트나 Paseo가 있으면 다시 설치하기 전에 상태를 확인해요.
 
@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/jun0-ds/ai-assistant-setup/v1.1.0/CONTEXT.md �
 직접 할 수 있는 진단과 설정은 맡아서 진행하고, 로그인·기기 조작처럼 내가 할 일은 한 번에 하나씩 알려줘요. 오류가 나면 원인을 확인하고 해결한 뒤 같은 검사를 다시 해요. 기존 계정·권한·개인 설정·자료를 초기화하지 말고, 확인 결과와 남은 일을 로컬에 기록해 다음 대화에서 이어갈 수 있게 해줘요.
 ```
 
-에이전트가 링크를 읽지 못하면 [v1.1.0 ZIP](https://github.com/jun0-ds/ai-assistant-setup/archive/refs/tags/v1.1.0.zip)을 받아 압축을 풀고 `CONTEXT.md`를 읽어 달라고 요청합니다. 인증 없이 받을 수 있는 공개 자료입니다.
+에이전트가 링크를 읽지 못하면 [v1.2.0 ZIP](https://github.com/jun0-ds/ai-assistant-setup/archive/refs/tags/v1.2.0.zip)을 받아 압축을 풀고 `CONTEXT.md`를 읽어 달라고 요청합니다. 인증 없이 받을 수 있는 공개 자료입니다.
 
 ## 처음 한 번 허용하고 다시 시작하기
 
